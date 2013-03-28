@@ -1,5 +1,6 @@
 TOP = $(shell pwd)
 WORK=$(TOP)/work
+GO_CHECKOUT=$(WORK)/go
 GO_103_ROOT=$(WORK)/go.103
 GO_103_BIN=$(GO_103_ROOT)/bin/go
 GO_TIP_ROOT=$(WORK)/go.tip
@@ -20,14 +21,17 @@ bench: setup
 
 setup: $(GO_103_BIN) $(GO_TIP_BIN)
 
-$(GO_103_ROOT): $(WORK)
-	hg clone -r release https://code.google.com/p/go $(GO_103_ROOT)
+$(GO_CHECKOUT):
+	hg clone https://code.google.com/p/go $(GO_CHECKOUT)
+
+$(GO_103_ROOT): $(GO_CHECKOUT)
+	hg clone -b release-branch.go1 $(GO_CHECKOUT) $@
 
 $(GO_103_BIN): $(GO_103_ROOT)
 	cd $(GO_103_ROOT)/src ; ./make.bash
 
-$(GO_TIP_ROOT): $(WORK)
-	hg clone -r tip https://code.google.com/p/go $(GO_TIP_ROOT)
+$(GO_TIP_ROOT): $(GO_CHECKOUT)
+	hg clone -r tip $(GO_CHECKOUT) $@
 
 $(GO_TIP_BIN): $(GO_TIP_ROOT)
 	cd $(GO_TIP_ROOT)/src ; ./make.bash
