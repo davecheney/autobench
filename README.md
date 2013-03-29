@@ -6,4 +6,6 @@ autobench
 usage
 -----
 
+`autobench` downloads and builds Go 1.0.3 and Go tip and runs a set of Go 1 benchmarks for comparison.
+
     make bench 

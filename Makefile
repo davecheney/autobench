@@ -15,24 +15,24 @@ bench: $(WORK)/go-103.txt $(WORK)/go-tip.txt
 	$(BENCHCMP) $^
 
 $(GO_CHECKOUT):
-	hg clone https://code.google.com/p/go $(GO_CHECKOUT)
+	hg clone https://code.google.com/p/go $@
 
 $(GO_103_ROOT): $(GO_CHECKOUT)
 	hg clone -b release-branch.go1 $(GO_CHECKOUT) $@
 
-$(GO_103_BIN): $(GO_103_ROOT)
-	cd $(GO_103_ROOT)/src ; ./make.bash
-
-$(WORK)/go-103.txt: $(GO_103_BIN)
-	$(GO_103_BIN) test -bench=. bench/go1 > $@
-
 $(GO_TIP_ROOT): $(GO_CHECKOUT)
 	hg clone -r tip $(GO_CHECKOUT) $@
+
+$(GO_103_BIN): $(GO_103_ROOT)
+	cd $(GO_103_ROOT)/src ; ./make.bash
 
 $(GO_TIP_BIN): $(GO_TIP_ROOT)
 	cd $(GO_TIP_ROOT)/src ; ./make.bash
 
-$(WORK)/go-tip.txt: $(GO_TIP_ROOT)
+$(WORK)/go-103.txt: $(GO_103_BIN)
+	$(GO_103_BIN) test -bench=. bench/go1 > $@
+
+$(WORK)/go-tip.txt: $(GO_TIP_BIN)
 	$(GO_TIP_BIN) test -bench=. bench/go1 > $@
 
 clean:	
