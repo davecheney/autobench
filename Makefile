@@ -14,6 +14,11 @@ unexport GOROOT
 bench: $(WORK)/go-103.txt $(WORK)/go-tip.txt
 	$(BENCHCMP) $^
 
+update: $(GO_TIP_ROOT)
+	cd $(GO_CHECKOUT); hg pull
+	cd $(GO_TIP_ROOT); hg pull -u
+	rm -rf $(GO_TIP_ROOT)/bin
+
 $(GO_CHECKOUT):
 	hg clone https://code.google.com/p/go $@
 
