@@ -14,7 +14,7 @@ unexport GOROOT
 bench: $(WORK)/go-103.txt $(WORK)/go-tip.txt
 	$(BENCHCMP) $^
 
-update: $(GO_TIP_ROOT)
+update: $(GO_TIP_ROOT) clean
 	cd $(GO_CHECKOUT); hg pull
 	cd $(GO_TIP_ROOT); hg pull -u
 	rm -rf $(GO_TIP_ROOT)/bin
@@ -41,4 +41,4 @@ $(WORK)/go-tip.txt: $(GO_TIP_BIN)
 	$(GO_TIP_BIN) test -bench=. bench/go1 > $@
 
 clean:	
-	rm $(WORK)/*.txt
+	rm -f $(WORK)/*.txt
