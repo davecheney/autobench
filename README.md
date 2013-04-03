@@ -10,6 +10,7 @@ usage
 
 Useful targets are
 
-    make bench  	# runs the benchmarks _once_ 
+    make go1 		# runs bench/go1 benchmarks _once_
+    make runtime 	# runs bench/runtime benchmarks _once_
     make clean 		# removes any previous benchmark results
     make update		# updates the go.tip version to the latest revision, clears any benchmark results
