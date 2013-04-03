@@ -5,10 +5,12 @@ GO_103_ROOT=$(GO_CHECKOUT).103
 GO_103_BIN=$(GO_103_ROOT)/bin/go
 GO_TIP_ROOT=$(GO_CHECKOUT).tip
 GO_TIP_BIN=$(GO_TIP_ROOT)/bin/go
-GOPATH=$(TOP)
 
 BENCHCMP=$(GO_TIP_ROOT)/misc/benchcmp
 
+# setup our benchmarking environment
+GOPATH=$(TOP)
+export GOPATH
 unexport GOROOT
 
 bench: go1 runtime
@@ -19,10 +21,11 @@ go1: $(WORK)/go1-103.txt $(WORK)/go1-tip.txt
 runtime: $(WORK)/runtime-103.txt $(WORK)/runtime-tip.txt
 	$(BENCHCMP) $^
 
-update: $(GO_TIP_ROOT) clean
+update: $(GO_TIP_ROOT) 
 	cd $(GO_CHECKOUT); hg pull
 	cd $(GO_TIP_ROOT); hg pull -u
 	rm -rf $(GO_TIP_ROOT)/bin
+	rm -f $(WORK)/*tip.txt
 
 $(GO_CHECKOUT):
 	hg clone https://code.google.com/p/go $@
