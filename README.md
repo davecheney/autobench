@@ -16,6 +16,14 @@ Useful targets are
     make clean 		# removes any previous benchmark results
     make update		# updates the go.tip version to the latest revision, clears any benchmark results
 
+contributing
+------------
+
+Contributions and pull requests are always welcome. If you are submitting a pull request with benchmark data, please include the value of
+
+    hg id work/go.tip
+
+in the suffix of your file (follow the examples) so we can trace which revision this benchmark was taken from.
 
 licence
 -------
