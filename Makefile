@@ -11,7 +11,12 @@ BENCHCMP=$(GO_TIP_ROOT)/misc/benchcmp
 
 unexport GOROOT
 
+bench: go1 runtime
+
 go1: $(WORK)/go1-103.txt $(WORK)/go1-tip.txt
+	$(BENCHCMP) $^
+
+runtime: $(WORK)/runtime-103.txt $(WORK)/runtime-tip.txt
 	$(BENCHCMP) $^
 
 update: $(GO_TIP_ROOT) clean
@@ -39,6 +44,12 @@ $(WORK)/go1-103.txt: $(GO_103_BIN)
 
 $(WORK)/go1-tip.txt: $(GO_TIP_BIN)
 	$(GO_TIP_BIN) test -bench=. bench/go1 > $@
+
+$(WORK)/runtime-103.txt: $(GO_103_BIN)
+	$(GO_103_BIN) test -test.run=XXX -test.bench=. bench/runtime > $@
+
+$(WORK)/runtime-tip.txt: $(GO_TIP_BIN)
+	$(GO_TIP_BIN) test -test.run=XXX -test.bench=. bench/runtime > $@
 
 clean:	
 	rm -f $(WORK)/*.txt

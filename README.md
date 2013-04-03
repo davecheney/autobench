@@ -9,7 +9,8 @@ usage
 `autobench` downloads and builds Go 1.0.3 and Go tip and runs a set of Go 1 benchmarks for comparison.
 
 Useful targets are
-
+	
+    make bench		# runs all benchmarks, _once_
     make go1 		# runs bench/go1 benchmarks _once_
     make runtime 	# runs bench/runtime benchmarks _once_
     make clean 		# removes any previous benchmark results
