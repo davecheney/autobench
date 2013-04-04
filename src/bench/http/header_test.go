@@ -5,8 +5,8 @@
 package http_test
 
 import (
-	. "net/http"
 	"bytes"
+	. "net/http"
 	"testing"
 )
 
