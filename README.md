@@ -16,6 +16,13 @@ Useful targets are
     make clean 		# removes any previous benchmark results
     make update		# updates the go.tip version to the latest revision, clears any benchmark results
 
+notes
+-----
+
+There are several caveats to benchmarking last year's Go with tip
+
+ * If you are benchmarking on an arm platform, remember that there was no automatic detection for GOARM, so you will have to set it yourself. See the [GoARM wiki page](https://code.google.com/p/go-wiki/wiki/GoArm) for more details
+
 contributing
 ------------
 

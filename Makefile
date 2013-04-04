@@ -22,8 +22,8 @@ runtime: $(WORK)/runtime-103.txt $(WORK)/runtime-tip.txt
 	$(BENCHCMP) $^
 
 update: $(GO_TIP_ROOT) 
-	cd $(GO_CHECKOUT); hg pull
-	cd $(GO_TIP_ROOT); hg pull -u
+	hg pull --cwd $(GO_CHECKOUT)
+	hg pull --cwd $(GO_TIP_ROOT) -u
 	rm -rf $(GO_TIP_ROOT)/bin
 	rm -f $(WORK)/*tip.txt
 
@@ -32,6 +32,7 @@ $(GO_CHECKOUT):
 
 $(GO_103_ROOT): $(GO_CHECKOUT)
 	hg clone -b release-branch.go1 $(GO_CHECKOUT) $@
+	hg import --cwd $@ --no-commit $(TOP)/patches/6501099.diff
 
 $(GO_TIP_ROOT): $(GO_CHECKOUT)
 	hg clone -r tip $(GO_CHECKOUT) $@
