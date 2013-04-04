@@ -21,6 +21,9 @@ go1: $(WORK)/go1-103.txt $(WORK)/go1-tip.txt
 runtime: $(WORK)/runtime-103.txt $(WORK)/runtime-tip.txt
 	$(BENCHCMP) $^
 
+http: $(WORK)/http-103.txt $(WORK)/http-tip.txt
+	$(BENCHCMP) $^
+
 update: $(GO_TIP_ROOT) 
 	hg pull --cwd $(GO_CHECKOUT)
 	hg pull --cwd $(GO_TIP_ROOT) -u
@@ -54,6 +57,12 @@ $(WORK)/runtime-103.txt: $(GO_103_BIN)
 
 $(WORK)/runtime-tip.txt: $(GO_TIP_BIN)
 	$(GO_TIP_BIN) test -test.run=XXX -test.bench=. bench/runtime > $@
+
+$(WORK)/http-103.txt: $(GO_103_BIN)
+	$(GO_103_BIN) test -test.run=XXX -test.bench=. bench/http > $@
+
+$(WORK)/http-tip.txt: $(GO_TIP_BIN)
+	$(GO_TIP_BIN) test -test.run=XXX -test.bench=. bench/http > $@
 
 clean:	
 	rm -f $(WORK)/*.txt
