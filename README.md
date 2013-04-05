@@ -31,7 +31,7 @@ Contributions and pull requests are always welcome. If you are submitting a pull
 
     hg id work/go.tip
 
-in the suffix of your file (follow the examples) so we can trace which revision this benchmark was taken from.
+in the suffix of your file (follow the examples) so we can trace which revision this benchmark was taken from. If you want to include commentry in your benchmark, comments should start with a #.
 
 licence
 -------
