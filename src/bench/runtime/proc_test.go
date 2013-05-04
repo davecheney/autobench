@@ -13,14 +13,6 @@ import (
 
 var stop = make(chan bool, 1)
 
-func perpetuumMobile() {
-	select {
-	case <-stop:
-	default:
-		go perpetuumMobile()
-	}
-}
-
 func stackGrowthRecursive(i int) {
 	var pad [128]uint64
 	if i != 0 && pad[0] == 0 {
