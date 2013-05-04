@@ -12,6 +12,7 @@ BENCHCMP=$(GO_TIP_ROOT)/misc/benchcmp
 GOPATH=$(TOP)
 export GOPATH
 unexport GOROOT
+unexport GOBIN
 
 bench: go1 runtime
 
