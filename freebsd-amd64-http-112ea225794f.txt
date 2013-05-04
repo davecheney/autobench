@@ -1,0 +1,25 @@
+benchmark                                   old ns/op    new ns/op    delta
+BenchmarkHeaderWriteSubset                       6384         1918  -69.96%
+BenchmarkReadRequestChrome                      16689        11484  -31.19%
+BenchmarkReadRequestCurl                         7707         5726  -25.70%
+BenchmarkReadRequestApachebench                  7939         5717  -27.99%
+BenchmarkReadRequestSiege                       11033         7873  -28.64%
+BenchmarkReadRequestWrk                          5339         3776  -29.28%
+BenchmarkClientServer                          126406      8139528  +6339.19%
+BenchmarkClientServerParallel4                 129229      2202407  +1604.27%
+BenchmarkClientServerParallel64                118270       208785  +76.53%
+BenchmarkServer                                119984      4108011  +3323.80%
+BenchmarkServerFakeConnNoKeepAlive              42926        25223  -41.24%
+BenchmarkServerFakeConnWithKeepAlive            32750        20862  -36.30%
+BenchmarkServerFakeConnWithKeepAliveLite        25872        13577  -47.52%
+BenchmarkServerHandlerTypeLen                   25162        16996  -32.45%
+BenchmarkServerHandlerNoLen                     25619        15512  -39.45%
+BenchmarkServerHandlerNoType                    24240        16174  -33.28%
+BenchmarkServerHandlerNoHeader                  25367        12865  -49.28%
+
+benchmark                                    old MB/s     new MB/s  speedup
+BenchmarkReadRequestChrome                      36.61        53.20    1.45x
+BenchmarkReadRequestCurl                        10.12        13.62    1.35x
+BenchmarkReadRequestApachebench                 10.33        14.34    1.39x
+BenchmarkReadRequestSiege                       13.69        19.18    1.40x
+BenchmarkReadRequestWrk                          7.49        10.59    1.41x
