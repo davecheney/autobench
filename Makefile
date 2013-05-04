@@ -35,7 +35,7 @@ $(GO_CHECKOUT):
 
 $(GO_103_ROOT): $(GO_CHECKOUT)
 	hg clone -b release-branch.go1 $(GO_CHECKOUT) $@
-	hg import --cwd $@ --no-commit $(TOP)/patches/6501099.diff $(TOP)/patches/7665047.diff
+	hg import --cwd $@ --no-commit $(TOP)/patches/6501099.diff
 
 $(GO_TIP_ROOT): $(GO_CHECKOUT)
 	hg clone -r tip $(GO_CHECKOUT) $@
