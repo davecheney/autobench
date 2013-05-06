@@ -6,6 +6,9 @@ GO_103_BIN=$(GO_103_ROOT)/bin/go
 GO_TIP_ROOT=$(GO_CHECKOUT).tip
 GO_TIP_BIN=$(GO_TIP_ROOT)/bin/go
 
+# uncomment to benchmark with gccgo
+# TESTFLAGS=-compiler=gccgo
+
 BENCHCMP=$(GO_TIP_ROOT)/misc/benchcmp
 
 # setup our benchmarking environment
@@ -48,22 +51,22 @@ $(GO_TIP_BIN): $(GO_TIP_ROOT)
 	cd $(GO_TIP_ROOT)/src ; ./make.bash
 
 $(WORK)/go1-103.txt: $(GO_103_BIN)
-	$(GO_103_BIN) test -bench=. bench/go1 > $@
+	$(GO_103_BIN) test $(TESTFLAGS) -bench=. bench/go1 > $@
 
 $(WORK)/go1-tip.txt: $(GO_TIP_BIN)
-	$(GO_TIP_BIN) test -bench=. bench/go1 > $@
+	$(GO_TIP_BIN) test $(TESTFLAGS) -bench=. bench/go1 > $@
 
 $(WORK)/runtime-103.txt: $(GO_103_BIN)
-	$(GO_103_BIN) test -test.run=XXX -test.bench=. bench/runtime > $@
+	$(GO_103_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. bench/runtime > $@
 
 $(WORK)/runtime-tip.txt: $(GO_TIP_BIN)
-	$(GO_TIP_BIN) test -test.run=XXX -test.bench=. bench/runtime > $@
+	$(GO_TIP_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. bench/runtime > $@
 
 $(WORK)/http-103.txt: $(GO_103_BIN)
-	$(GO_103_BIN) test -test.run=XXX -test.bench=. bench/http > $@
+	$(GO_103_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. bench/http > $@
 
 $(WORK)/http-tip.txt: $(GO_TIP_BIN)
-	$(GO_TIP_BIN) test -test.run=XXX -test.bench=. bench/http > $@
+	$(GO_TIP_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. bench/http > $@
 
 clean:	
 	rm -f $(WORK)/*.txt
