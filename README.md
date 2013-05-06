@@ -17,6 +17,10 @@ Useful targets are
     make clean 		# removes any previous benchmark results
     make update		# updates the go.tip version to the latest revision, clears any benchmark results
 
+You can optionally benchmark with gccgo instead of gc by either uncommenting the corresponding line in the Makefile or by setting TESTFLAGS to an appropriate value:
+
+    make TESTFLAGS=-compiler=gcc bench
+
 notes
 -----
 
