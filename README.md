@@ -1,7 +1,7 @@
 autobench
 =========
 
-`autobench` is a framework to compare the performance of go 1.0 and go 1.1.
+`autobench` is a framework to compare the performance of Go 1.0 and Go 1.1.
 
 usage
 -----
