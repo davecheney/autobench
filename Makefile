@@ -28,7 +28,7 @@ http: $(WORK)/http-10.txt $(WORK)/http-11.txt
 	$(BENCHCMP) $^
 
 update: $(GO_CHECKOUT) $(GO_10_ROOT) $(GO_11_ROOT)
-	hg pull --cwd $(GO_CHECKOUT)
+	hg pull --cwd $(GO_CHECKOUT) -u
 	hg pull --cwd $(GO_10_ROOT) -u
 	hg pull --cwd $(GO_11_ROOT) -u
 	rm -rf $(GO_10_ROOT)/bin $(GO_11_ROOT)/bin
