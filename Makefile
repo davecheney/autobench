@@ -40,11 +40,9 @@ $(GO_CHECKOUT):
 $(GO_10_ROOT): $(GO_CHECKOUT)
 	hg clone -b release-branch.go1 $(GO_CHECKOUT) $@
 	hg import --cwd $@ --no-commit $(TOP)/patches/6501099.diff
-	hg import --cwd $@ --force --no-commit $(TOP)/patches/issue9090045_31001.diff
 
 $(GO_11_ROOT): $(GO_CHECKOUT)
 	hg clone -b release-branch.go1.1 $(GO_CHECKOUT) $@
-	hg import --cwd $@ --no-commit $(TOP)/patches/issue9090045_31001.diff
 
 $(GO_10_BIN): $(GO_10_ROOT)
 	cd $(GO_10_ROOT)/src ; ./make.bash
