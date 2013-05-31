@@ -97,3 +97,56 @@ BenchmarkMemmove4M                         1452.83      1505.75    1.04x
 BenchmarkMemmove64M                        1590.01      1510.18    0.95x
 BenchmarkCompareStringBigUnaligned          329.64      4236.95   12.85x
 BenchmarkCompareStringBig                   299.82      5810.55   19.38x
+
+PASS
+BenchmarkHeaderWriteSubset	 1000000	      2553 ns/op
+BenchmarkReadRequestChrome	  200000	     13685 ns/op	  44.65 MB/s
+BenchmarkReadRequestCurl	  500000	      6278 ns/op	  12.42 MB/s
+BenchmarkReadRequestApachebench	  500000	      6644 ns/op	  12.34 MB/s
+BenchmarkReadRequestSiege	  200000	     10110 ns/op	  14.93 MB/s
+BenchmarkReadRequestWrk	  500000	      4225 ns/op	   9.47 MB/s
+BenchmarkClientServer	   10000	    155344 ns/op
+BenchmarkClientServerParallel4	   10000	    121952 ns/op
+BenchmarkClientServerParallel64	   10000	    132016 ns/op
+BenchmarkServer	   10000	    175002 ns/op
+BenchmarkServerFakeConnNoKeepAlive	  100000	     31076 ns/op
+BenchmarkServerFakeConnWithKeepAlive	  100000	     28002 ns/op
+BenchmarkServerFakeConnWithKeepAliveLite	  100000	     18862 ns/op
+BenchmarkServerHandlerTypeLen	  100000	     20011 ns/op
+BenchmarkServerHandlerNoLen	  100000	     18384 ns/op
+BenchmarkServerHandlerNoType	  100000	     19011 ns/op
+BenchmarkServerHandlerNoHeader	  100000	     15115 ns/op
+ok  	bench/http	39.473s
+
+PASS
+BenchmarkBinaryTree17	       1	9750066014 ns/op
+BenchmarkFannkuch11	       1	6504562907 ns/op
+BenchmarkFmtFprintfEmpty	10000000	       197 ns/op
+BenchmarkFmtFprintfString	 5000000	       501 ns/op
+BenchmarkFmtFprintfInt	 5000000	       334 ns/op
+BenchmarkFmtFprintfIntInt	 5000000	       538 ns/op
+BenchmarkFmtFprintfPrefixedInt	 5000000	       658 ns/op
+BenchmarkFmtFprintfFloat	 2000000	       871 ns/op
+BenchmarkFmtManyArgs	 1000000	      2212 ns/op
+BenchmarkGobDecode	     100	  22966075 ns/op	  33.42 MB/s
+BenchmarkGobEncode	      50	  23573206 ns/op	  32.56 MB/s
+BenchmarkGzip	       5	 847267972 ns/op	  22.90 MB/s
+BenchmarkGunzip	      10	 192171642 ns/op	 100.98 MB/s
+BenchmarkHTTPClientServer	   10000	    164753 ns/op
+BenchmarkJSONEncode	      20	  75267437 ns/op	  25.78 MB/s
+BenchmarkJSONDecode	      10	 167167978 ns/op	  11.61 MB/s
+BenchmarkMandelbrot200	     200	   7661064 ns/op
+BenchmarkGoParse	     100	  10362157 ns/op	   5.59 MB/s
+BenchmarkRegexpMatchEasy0_32	10000000	       248 ns/op	 128.71 MB/s
+BenchmarkRegexpMatchEasy0_1K	 5000000	       610 ns/op	1677.54 MB/s
+BenchmarkRegexpMatchEasy1_32	10000000	       208 ns/op	 153.15 MB/s
+BenchmarkRegexpMatchEasy1_1K	 1000000	      1552 ns/op	 659.70 MB/s
+BenchmarkRegexpMatchMedium_32	 5000000	       342 ns/op	   2.92 MB/s
+BenchmarkRegexpMatchMedium_1K	   10000	    133250 ns/op	   7.68 MB/s
+BenchmarkRegexpMatchHard_32	  500000	      6367 ns/op	   5.03 MB/s
+BenchmarkRegexpMatchHard_1K	   10000	    211670 ns/op	   4.84 MB/s
+BenchmarkRevcomp	       1	1493718772 ns/op	 170.16 MB/s
+BenchmarkTemplate	      10	 229865128 ns/op	   8.44 MB/s
+BenchmarkTimeParse	 2000000	       748 ns/op
+BenchmarkTimeFormat	 2000000	       886 ns/op
+ok  	bench/go1	87.869s
