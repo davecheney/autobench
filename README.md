@@ -1,12 +1,12 @@
 autobench
 =========
 
-`autobench` is a framework to compare the performance of Go 1.0 and Go 1.1.
+`autobench` is a framework to compare the performance of Go 1.1 and Go tip.
 
 usage
 -----
 
-`autobench` downloads and builds the latest Go 1.0 and Go 1.1 branches and runs a set of Go 1 benchmarks for comparison.
+`autobench` downloads and builds the latest Go 1.1 and Go tip branches and runs a set of Go 1 benchmarks for comparison.
 
 Useful targets are
 	
@@ -21,23 +21,16 @@ You can optionally benchmark with gccgo instead of gc by either uncommenting the
 
     make TESTFLAGS=-compiler=gcc bench
 
-notes
------
-
-There are several caveats to benchmarking last year's Go with Go 1.1.
-
- * If you are benchmarking on an arm platform, remember that there was no automatic detection for GOARM, so you will have to set it yourself. See the [GoARM wiki page](https://code.google.com/p/go-wiki/wiki/GoArm) for more details
-
 contributing
 ------------
 
 Contributions and pull requests are always welcome. If you are submitting a pull request with benchmark data, please include the value of
 
-    hg id work/go.10
+    hg id work/go.11
 
 and
 
-    hg id work/go.11
+    hg id work/go.tip
 
 in the suffix of your file (follow the examples) so we can trace which revision this benchmark was taken from. If you want to include commentry in your benchmark, comments should start with a #.
 
