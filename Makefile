@@ -16,7 +16,7 @@ GOPATH=$(TOP)
 export GOPATH
 unexport GOROOT GOBIN
 
-bench: go1 runtime http
+bench: go1 runtime http floats
 
 go1: $(WORK)/go1-11.txt $(WORK)/go1-tip.txt
 	$(BENCHCMP) $^
@@ -25,6 +25,9 @@ runtime: $(WORK)/runtime-11.txt $(WORK)/runtime-tip.txt
 	$(BENCHCMP) $^
 
 http: $(WORK)/http-11.txt $(WORK)/http-tip.txt
+	$(BENCHCMP) $^
+
+floats: $(WORK)/floats-11.txt $(WORK)/floats-tip.txt
 	$(BENCHCMP) $^
 
 update: $(GO_CHECKOUT) $(GO_11_ROOT) $(GO_TIP_ROOT)
@@ -66,6 +69,12 @@ $(WORK)/http-11.txt: $(GO_11_BIN)
 
 $(WORK)/http-tip.txt: $(GO_TIP_BIN)
 	$(GO_TIP_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. bench/http > $@
+
+$(WORK)/floats-11.txt: $(GO_11_BIN)
+	$(GO_11_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. bench/floats > $@
+
+$(WORK)/floats-tip.txt: $(GO_TIP_BIN)
+	$(GO_TIP_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. bench/floats > $@
 
 clean:	
 	rm -f $(WORK)/*.txt
