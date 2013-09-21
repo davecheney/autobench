@@ -6,6 +6,8 @@ GO_11_BIN=$(GO_11_ROOT)/bin/go
 GO_TIP_ROOT=$(GO_CHECKOUT).tip
 GO_TIP_BIN=$(GO_TIP_ROOT)/bin/go
 
+GO1_BENCH=$(GO_TIP_ROOT)/test/bench/go1
+
 # uncomment to benchmark with gccgo
 # TESTFLAGS=-compiler=gccgo
 
@@ -50,10 +52,10 @@ $(GO_TIP_BIN): $(GO_TIP_ROOT)
 	cd $(GO_TIP_ROOT)/src ; ./make.bash
 
 $(WORK)/go1-11.txt: $(GO_11_BIN)
-	$(GO_11_BIN) test $(TESTFLAGS) -bench=. bench/go1 > $@
+	cd $(GO1_BENCH) && $(GO_11_BIN) test $(TESTFLAGS) -bench=. > $@
 
 $(WORK)/go1-tip.txt: $(GO_TIP_BIN)
-	$(GO_TIP_BIN) test $(TESTFLAGS) -bench=. bench/go1 > $@
+	cd $(GO1_BENCH) && $(GO_TIP_BIN) test $(TESTFLAGS) -bench=. > $@
 
 $(WORK)/runtime-11.txt: $(GO_11_BIN)
 	$(GO_11_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. bench/runtime > $@
