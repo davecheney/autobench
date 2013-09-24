@@ -6,6 +6,10 @@ import (
 	"testing"
 )
 
+// Copyright 2011 The Go Authors.  All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
 // Performs a set of tests on simple mathematical operations with float slices
 
 // Add returns the element-wise sum of all the slices with the
