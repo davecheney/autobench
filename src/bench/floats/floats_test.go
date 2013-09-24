@@ -131,7 +131,6 @@ func BenchmarkMinLarge(b *testing.B) {
 	benchmarkMin(b, s)
 }
 func BenchmarkMinHuge(b *testing.B) {
-	b.StopTimer()
 	s := RandomSlice(HUGE)
 	benchmarkMin(b, s)
 }
