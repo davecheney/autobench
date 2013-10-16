@@ -21,6 +21,11 @@ You can optionally benchmark with gccgo instead of gc by either uncommenting the
 
     make TESTFLAGS=-compiler=gcc bench
 
+known issues
+------------
+
+ * If you are using OS X 10.8 and/or have upgraded to XCode 5, your system no longer has a gcc compiler and so will not work with Go 1.1's cgo package. The best workaround is to invoke `autobench` with `env CGO_ENABLED=0 make $TARGET` to avoid compiling Go 1.1 or Go tip with cgo enabled.
+
 contributing
 ------------
 
