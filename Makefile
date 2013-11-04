@@ -6,9 +6,9 @@ OLD  := go1.1.2
 NEW  := go1.2rc3
 
 GO_CHECKOUT=$(WORK)/go
-GO_OLD_ROOT=$(GO_CHECKOUT)-$(OLD)
+GO_OLD_ROOT=$(WORK)/$(OLD)
 GO_OLD_BIN=$(GO_OLD_ROOT)/bin/go
-GO_NEW_ROOT=$(GO_CHECKOUT)-$(NEW)
+GO_NEW_ROOT=$(WORK)/$(NEW)
 GO_NEW_BIN=$(GO_NEW_ROOT)/bin/go
 
 GO1_BENCH=$(GO_NEW_ROOT)/test/bench/go1
@@ -37,8 +37,10 @@ http: $(WORK)/http-$(OLD).txt $(WORK)/http-$(NEW).txt
 floats: $(WORK)/floats-$(OLD).txt $(WORK)/floats-$(NEW).txt
 	$(BENCHCMP) $^
 
-update: $(GO_CHECKOUT) $(GO_OLD_ROOT) $(GO_NEW_ROOT)
+update-$(GO_CHECKOUT): $(GO-CHECKOUT)
 	hg pull --cwd $(GO_CHECKOUT) -u
+
+update: update-$(GO_CHECKOUT) $(GO_OLD_ROOT) $(GO_NEW_ROOT)
 	hg pull --cwd $(GO_OLD_ROOT) -u
 	hg pull --cwd $(GO_NEW_ROOT) -u
 	rm -rf $(GO_OLD_ROOT)/bin $(GO_NEW_ROOT)/bin
@@ -57,7 +59,7 @@ $(GO_NEW_ROOT): $(GO_CHECKOUT)
 	hg clone -r tip $(GO_CHECKOUT) $@
 
 $(GO_NEW_BIN): $(GO_NEW_ROOT)
-	cd $(GO_OLD_ROOT)/src ; ./make.bash
+	cd $(GO_NEW_ROOT)/src ; ./make.bash
 
 $(WORK)/go1-$(OLD).txt: $(GO_OLD_BIN)
 	cd $(GO1_BENCH) && $(GO_OLD_BIN) test $(TESTFLAGS) -bench=. > $@
