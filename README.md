@@ -26,6 +26,7 @@ known issues
 ------------
 
  * If you are using OS X 10.8 and/or have upgraded to XCode 5, your system no longer has a gcc compiler and so will not work with Go 1.1's cgo package. The best workaround is to invoke `autobench` with `env CGO_ENABLED=0 make $TARGET` to avoid compiling Go with cgo enabled.
+ * If you are benchmarking on Freebsd, you may need to use `gmake`.
 
 contributing
 ------------
