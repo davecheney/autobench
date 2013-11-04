@@ -26,16 +26,20 @@ unexport GOROOT GOBIN
 bench: go1 runtime http floats
 
 go1: $(WORK)/go1-$(OLD).txt $(WORK)/go1-$(NEW).txt
-	$(BENCHCMP) $^
+	@echo "# go1"
+	@$(BENCHCMP) $^
 
 runtime: $(WORK)/runtime-$(OLD).txt $(WORK)/runtime-$(NEW).txt
-	$(BENCHCMP) $^
+	@echo "# runtime"
+	@$(BENCHCMP) $^
 
 http: $(WORK)/http-$(OLD).txt $(WORK)/http-$(NEW).txt
-	$(BENCHCMP) $^
+	@echo "# http"
+	@$(BENCHCMP) $^
 
 floats: $(WORK)/floats-$(OLD).txt $(WORK)/floats-$(NEW).txt
-	$(BENCHCMP) $^
+	@echo "# floats"
+	@$(BENCHCMP) $^
 
 update-$(GO_CHECKOUT): $(GO_CHECKOUT)
 	hg pull --cwd $(GO_CHECKOUT) -u
