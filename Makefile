@@ -1,17 +1,22 @@
-TOP=$(shell pwd)
-WORK=$(TOP)/work
-GO_CHECKOUT=$(WORK)/go
-GO_11_ROOT=$(GO_CHECKOUT).11
-GO_11_BIN=$(GO_11_ROOT)/bin/go
-GO_TIP_ROOT=$(GO_CHECKOUT).tip
-GO_TIP_BIN=$(GO_TIP_ROOT)/bin/go
+TOP  := $(shell pwd)
+WORK := $(TOP)/work
 
-GO1_BENCH=$(GO_TIP_ROOT)/test/bench/go1
+# set these two values to the tags (or revisions) you wish to compare
+OLD  := go1.1.2
+NEW  := go1.2rc3
+
+GO_CHECKOUT=$(WORK)/go
+GO_OLD_ROOT=$(GO_CHECKOUT)-$(OLD)
+GO_OLD_BIN=$(GO_OLD_ROOT)/bin/go
+GO_NEW_ROOT=$(GO_CHECKOUT)-$(NEW)
+GO_NEW_BIN=$(GO_NEW_ROOT)/bin/go
+
+GO1_BENCH=$(GO_NEW_ROOT)/test/bench/go1
 
 # uncomment to benchmark with gccgo
 # TESTFLAGS=-compiler=gccgo
 
-BENCHCMP=$(GO_11_ROOT)/misc/benchcmp
+BENCHCMP=$(GO_CHECKOUT)/misc/benchcmp
 
 # setup our benchmarking environment
 GOPATH=$(TOP)
@@ -20,63 +25,63 @@ unexport GOROOT GOBIN
 
 bench: go1 runtime http floats
 
-go1: $(WORK)/go1-11.txt $(WORK)/go1-tip.txt
+go1: $(WORK)/go1-$(OLD).txt $(WORK)/go1-$(NEW).txt
 	$(BENCHCMP) $^
 
-runtime: $(WORK)/runtime-11.txt $(WORK)/runtime-tip.txt
+runtime: $(WORK)/runtime-$(OLD).txt $(WORK)/runtime-$(NEW).txt
 	$(BENCHCMP) $^
 
-http: $(WORK)/http-11.txt $(WORK)/http-tip.txt
+http: $(WORK)/http-$(OLD).txt $(WORK)/http-$(NEW).txt
 	$(BENCHCMP) $^
 
-floats: $(WORK)/floats-11.txt $(WORK)/floats-tip.txt
+floats: $(WORK)/floats-$(OLD).txt $(WORK)/floats-$(NEW).txt
 	$(BENCHCMP) $^
 
-update: $(GO_CHECKOUT) $(GO_11_ROOT) $(GO_TIP_ROOT)
+update: $(GO_CHECKOUT) $(GO_OLD_ROOT) $(GO_NEW_ROOT)
 	hg pull --cwd $(GO_CHECKOUT) -u
-	hg pull --cwd $(GO_11_ROOT) -u
-	hg pull --cwd $(GO_TIP_ROOT) -u
-	rm -rf $(GO_11_ROOT)/bin $(GO_TIP_ROOT)/bin
+	hg pull --cwd $(GO_OLD_ROOT) -u
+	hg pull --cwd $(GO_NEW_ROOT) -u
+	rm -rf $(GO_OLD_ROOT)/bin $(GO_NEW_ROOT)/bin
 	rm -f $(WORK)/*.txt
 
 $(GO_CHECKOUT):
 	hg clone https://code.google.com/p/go $@
 
-$(GO_11_ROOT): $(GO_CHECKOUT)
-	hg clone -b release-branch.go1.1 $(GO_CHECKOUT) $@
+$(GO_OLD_ROOT): $(GO_CHECKOUT)
+	hg clone -r $(OLD) $(GO_CHECKOUT) $@
 
-$(GO_11_BIN): $(GO_11_ROOT)
-	cd $(GO_11_ROOT)/src ; ./make.bash
+$(GO_OLD_BIN): $(GO_OLD_ROOT)
+	cd $(GO_OLD_ROOT)/src ; ./make.bash
 
-$(GO_TIP_ROOT): $(GO_CHECKOUT)
+$(GO_NEW_ROOT): $(GO_CHECKOUT)
 	hg clone -r tip $(GO_CHECKOUT) $@
 
-$(GO_TIP_BIN): $(GO_TIP_ROOT)
-	cd $(GO_TIP_ROOT)/src ; ./make.bash
+$(GO_NEW_BIN): $(GO_NEW_ROOT)
+	cd $(GO_OLD_ROOT)/src ; ./make.bash
 
-$(WORK)/go1-11.txt: $(GO_11_BIN)
-	cd $(GO1_BENCH) && $(GO_11_BIN) test $(TESTFLAGS) -bench=. > $@
+$(WORK)/go1-$(OLD).txt: $(GO_OLD_BIN)
+	cd $(GO1_BENCH) && $(GO_OLD_BIN) test $(TESTFLAGS) -bench=. > $@
 
-$(WORK)/go1-tip.txt: $(GO_TIP_BIN)
-	cd $(GO1_BENCH) && $(GO_TIP_BIN) test $(TESTFLAGS) -bench=. > $@
+$(WORK)/go1-$(NEW).txt: $(GO_NEW_BIN)
+	cd $(GO1_BENCH) && $(GO_NEW_BIN) test $(TESTFLAGS) -bench=. > $@
 
-$(WORK)/runtime-11.txt: $(GO_11_BIN)
-	$(GO_11_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. bench/runtime > $@
+$(WORK)/runtime-$(OLD).txt: $(GO_OLD_BIN)
+	$(GO_OLD_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. bench/runtime > $@
 
-$(WORK)/runtime-tip.txt: $(GO_TIP_BIN)
-	$(GO_TIP_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. bench/runtime > $@
+$(WORK)/runtime-$(NEW).txt: $(GO_NEW_BIN)
+	$(GO_NEW_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. bench/runtime > $@
 
-$(WORK)/http-11.txt: $(GO_11_BIN)
-	$(GO_11_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. bench/http > $@
+$(WORK)/http-$(OLD).txt: $(GO_OLD_BIN)
+	$(GO_OLD_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. bench/http > $@
 
-$(WORK)/http-tip.txt: $(GO_TIP_BIN)
-	$(GO_TIP_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. bench/http > $@
+$(WORK)/http-$(NEW).txt: $(GO_NEW_BIN)
+	$(GO_NEW_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. bench/http > $@
 
-$(WORK)/floats-11.txt: $(GO_11_BIN)
-	$(GO_11_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. bench/floats > $@
+$(WORK)/floats-$(OLD).txt: $(GO_OLD_BIN)
+	$(GO_OLD_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. bench/floats > $@
 
-$(WORK)/floats-tip.txt: $(GO_TIP_BIN)
-	$(GO_TIP_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. bench/floats > $@
+$(WORK)/floats-$(NEW).txt: $(GO_NEW_BIN)
+	$(GO_NEW_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. bench/floats > $@
 
 clean:	
 	rm -f $(WORK)/*.txt
