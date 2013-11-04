@@ -46,10 +46,7 @@ update: update-$(GO_CHECKOUT) $(GO_OLD_ROOT) $(GO_NEW_ROOT)
 	rm -rf $(GO_OLD_ROOT)/bin $(GO_NEW_ROOT)/bin
 	rm -f $(WORK)/*.txt
 
-$(WORK):
-	mkdir -p $@
-
-$(GO_CHECKOUT): $(WORK)
+$(GO_CHECKOUT): 
 	hg clone https://code.google.com/p/go $@
 
 $(GO_OLD_ROOT): $(GO_CHECKOUT)
@@ -64,10 +61,12 @@ $(GO_NEW_ROOT): $(GO_CHECKOUT)
 $(GO_NEW_BIN): $(GO_NEW_ROOT)
 	cd $(GO_NEW_ROOT)/src ; ./make.bash
 
-$(WORK)/go1-$(OLD).txt: $(GO_OLD_BIN)
+$(GO1_BENCH): $(GO_NEW_ROOT)
+
+$(WORK)/go1-$(OLD).txt: $(GO_OLD_BIN) $(GO1_BENCH)
 	cd $(GO1_BENCH) && $(GO_OLD_BIN) test $(TESTFLAGS) -bench=. > $@
 
-$(WORK)/go1-$(NEW).txt: $(GO_NEW_BIN)
+$(WORK)/go1-$(NEW).txt: $(GO_NEW_BIN) $(GO1_BENCH)
 	cd $(GO1_BENCH) && $(GO_NEW_BIN) test $(TESTFLAGS) -bench=. > $@
 
 $(WORK)/runtime-$(OLD).txt: $(GO_OLD_BIN)
