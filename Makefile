@@ -37,7 +37,7 @@ http: $(WORK)/http-$(OLD).txt $(WORK)/http-$(NEW).txt
 floats: $(WORK)/floats-$(OLD).txt $(WORK)/floats-$(NEW).txt
 	$(BENCHCMP) $^
 
-update-$(GO_CHECKOUT): $(GO-CHECKOUT)
+update-$(GO_CHECKOUT): $(GO_CHECKOUT)
 	hg pull --cwd $(GO_CHECKOUT) -u
 
 update: update-$(GO_CHECKOUT) $(GO_OLD_ROOT) $(GO_NEW_ROOT)
@@ -46,7 +46,10 @@ update: update-$(GO_CHECKOUT) $(GO_OLD_ROOT) $(GO_NEW_ROOT)
 	rm -rf $(GO_OLD_ROOT)/bin $(GO_NEW_ROOT)/bin
 	rm -f $(WORK)/*.txt
 
-$(GO_CHECKOUT):
+$(WORK):
+	mkdir -p $@
+
+$(GO_CHECKOUT): $(WORK)
 	hg clone https://code.google.com/p/go $@
 
 $(GO_OLD_ROOT): $(GO_CHECKOUT)
