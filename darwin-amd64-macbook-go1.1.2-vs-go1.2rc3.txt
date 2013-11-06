@@ -1,0 +1,90 @@
+# 2013 Macbook Pro
+# MacBookPro11,3
+# Intel Core i7 2.3Ghz
+# 16 GB Ram, 10.9.0 Mavericks
+
+# go1
+benchmark                         old ns/op    new ns/op    delta
+BenchmarkBinaryTree17            4222177332   3535396381  -16,27%
+BenchmarkFannkuch11              2986555822   2907562913   -2,64%
+BenchmarkFmtFprintfEmpty                 82           82   +0,00%
+BenchmarkFmtFprintfString               221          189  -14,48%
+BenchmarkFmtFprintfInt                  170          161   -5,29%
+BenchmarkFmtFprintfIntInt               273          245  -10,26%
+BenchmarkFmtFprintfPrefixedInt          283          234  -17,31%
+BenchmarkFmtFprintfFloat                436          355  -18,58%
+BenchmarkFmtManyArgs                   1036          942   -9,07%
+BenchmarkGobDecode                  9287174      6480222  -30,22%
+BenchmarkGobEncode                 10852932      4713028  -56,57%
+BenchmarkGzip                     394205718    372201268   -5,58%
+BenchmarkGunzip                    95785183     87910249   -8,22%
+BenchmarkHTTPClientServer             48061        43933   -8,59%
+BenchmarkJSONEncode                35675851     19054555  -46,59%
+BenchmarkJSONDecode                71995490     68780181   -4,47%
+BenchmarkMandelbrot200              3888772      3922555   +0,87%
+BenchmarkGoParse                    5114558      3963360  -22,51%
+BenchmarkRegexpMatchEasy0_32            106          110   +3,77%
+BenchmarkRegexpMatchEasy0_1K            287          287   +0,00%
+BenchmarkRegexpMatchEasy1_32             87           89   +2,30%
+BenchmarkRegexpMatchEasy1_1K            697          723   +3,73%
+BenchmarkRegexpMatchMedium_32           146          152   +4,11%
+BenchmarkRegexpMatchMedium_1K         55979        53685   -4,10%
+BenchmarkRegexpMatchHard_32            2593         2560   -1,27%
+BenchmarkRegexpMatchHard_1K           85676        83581   -2,45%
+BenchmarkRevcomp                  731786855    615973359  -15,83%
+BenchmarkTemplate                  95826306     78689536  -17,88%
+BenchmarkTimeParse                      354          338   -4,52%
+BenchmarkTimeFormat                     409          342  -16,38%
+
+benchmark                          old MB/s     new MB/s  speedup
+BenchmarkGobDecode                    82,00       118,00    1,44x
+BenchmarkGobEncode                    70,00       162,00    2,31x
+BenchmarkGzip                         49,00        52,00    1,06x
+BenchmarkGunzip                      202,00       220,00    1,09x
+BenchmarkJSONEncode                   54,00       101,00    1,87x
+BenchmarkJSONDecode                   26,00        28,00    1,08x
+BenchmarkGoParse                      11,00        14,00    1,27x
+BenchmarkRegexpMatchEasy0_32         301,00       289,00    0,96x
+BenchmarkRegexpMatchEasy0_1K        3566,00      3565,00    1,00x
+BenchmarkRegexpMatchEasy1_32         365,00       356,00    0,98x
+BenchmarkRegexpMatchEasy1_1K        1467,00      1415,00    0,96x
+BenchmarkRegexpMatchMedium_32          6,00         6,00    1,00x
+BenchmarkRegexpMatchMedium_1K         18,00        19,00    1,06x
+BenchmarkRegexpMatchHard_32           12,00        12,00    1,00x
+BenchmarkRegexpMatchHard_1K           11,00        12,00    1,09x
+BenchmarkRevcomp                     347,00       412,00    1,19x
+BenchmarkTemplate                     20,00        24,00    1,20x
+# runtime
+benchmark                                old ns/op    new ns/op    delta
+BenchmarkAppend                                 92           94   +2,17%
+BenchmarkAppend1Byte                           153          121  -20,92%
+BenchmarkAppend4Bytes                          201          100  -50,25%
+BenchmarkAppend8Bytes                          271          101  -62,73%
+BenchmarkAppend16Bytes                         379          105  -72,30%
+BenchmarkAppend32Bytes                         671          103  -84,65%
+BenchmarkAppendSpecialCase                      31           36  +16,13%
+BenchmarkSelectUncontended                     227          221   -2,64%
+BenchmarkSelectContended                       229          219   -4,37%
+BenchmarkSelectNonblock                         94           98   +4,26%
+BenchmarkChanUncontended                        58           56   -3,45%
+BenchmarkChanContended                          58           56   -3,45%
+BenchmarkChanSync                              125          126   +0,80%
+BenchmarkChanProdCons0                         124          128   +3,23%
+BenchmarkChanProdCons10                         75           75   +0,00%
+BenchmarkChanProdCons100                        66           59  -10,61%
+BenchmarkChanProdConsWork0                     602          597   -0,83%
+BenchmarkChanProdConsWork10                    540          540   +0,00%
+BenchmarkChanProdConsWork100                   534          527   -1,31%
+BenchmarkChanCreation                          145          149   +2,76%
+BenchmarkChanSem                                57           56   -1,75%
+BenchmarkCallClosure                             2            2   +0,00%
+BenchmarkCallClosure1                            3            3   +0,00%
+BenchmarkCallClosure2                           39           33  -15,38%
+BenchmarkCallClosure3                           41           34  -17,07%
+BenchmarkCallClosure4                           42           34  -19,05%
+BenchmarkComplex128DivNormal                    16           16   +0,00%
+BenchmarkComplex128DivNisNaN                     9            9   +0,00%
+BenchmarkComplex128DivDisNaN                    10           10   +0,00%
+BenchmarkComplex128DivNisInf                     7            7   +0,00%
+BenchmarkComplex128DivDisInf                     7            8  +14,29%
+BenchmarkConvT2ESmall                            8            8   +0,00%
