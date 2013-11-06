@@ -1,5 +1,5 @@
 # Samsung QX412, Core i5 2520M
-# Ubuntu 13.10 (VM)
+# Ubuntu 13.10 in VMware on Windows 7 64bit host
 
 # go1
 benchmark                         old ns/op    new ns/op    delta
