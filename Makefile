@@ -23,7 +23,7 @@ GOPATH=$(TOP)
 export GOPATH
 unexport GOROOT GOBIN
 
-bench: go1 runtime http floats
+bench: go1 runtime http floats megajson
 
 go1: $(WORK)/go1-$(OLD).txt $(WORK)/go1-$(NEW).txt
 	@echo "# go1"
@@ -39,6 +39,10 @@ http: $(WORK)/http-$(OLD).txt $(WORK)/http-$(NEW).txt
 
 floats: $(WORK)/floats-$(OLD).txt $(WORK)/floats-$(NEW).txt
 	@echo "# floats"
+	@$(BENCHCMP) $^
+
+megajson: $(WORK)/megajson-$(OLD).txt $(WORK)/megajson-$(NEW).txt
+	@echo "#megajson"
 	@$(BENCHCMP) $^
 
 update-$(GO_CHECKOUT): $(GO_CHECKOUT)
@@ -90,6 +94,14 @@ $(WORK)/floats-$(OLD).txt: $(GO_OLD_BIN)
 
 $(WORK)/floats-$(NEW).txt: $(GO_NEW_BIN)
 	$(GO_NEW_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. bench/floats > $@
+
+$(WORK)/megajson-$(OLD).txt: $(GO_OLD_BIN)
+	$(GO_OLD_BIN) get -u -v -d github.com/benbjohnson/megajson
+	$(GO_OLD_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. github.com/benbjohnson/megajson/bench > $@
+
+$(WORK)/megajson-$(NEW).txt: $(GO_NEW_BIN)
+	$(GO_OLD_BIN) get -u -v -d github.com/benbjohnson/megajson
+	$(GO_NEW_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. github.com/benbjohnson/megajson/bench > $@
 
 clean:	
 	rm -f $(WORK)/*.txt
