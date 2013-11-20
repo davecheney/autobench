@@ -45,6 +45,10 @@ megajson: $(WORK)/megajson-$(OLD).txt $(WORK)/megajson-$(NEW).txt
 	@echo "#megajson"
 	@$(BENCHCMP) $^
 
+snappy: $(WORK)/snappy-$(OLD).txt $(WORK)/snappy-$(NEW).txt
+	@echo "#megajson"
+	@$(BENCHCMP) $^
+
 update-$(GO_CHECKOUT): $(GO_CHECKOUT)
 	hg pull --cwd $(GO_CHECKOUT) -u
 
@@ -102,6 +106,14 @@ $(WORK)/megajson-$(OLD).txt: $(GO_OLD_BIN)
 $(WORK)/megajson-$(NEW).txt: $(GO_NEW_BIN)
 	$(GO_OLD_BIN) get -u -v -d github.com/benbjohnson/megajson
 	$(GO_NEW_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. github.com/benbjohnson/megajson/bench > $@
+
+$(WORK)/snappy-$(OLD).txt: $(GO_OLD_BIN)
+	$(GO_OLD_BIN) get -u -v -d code.google.com/p/snappy-go/snappy
+	$(GO_OLD_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. code.google.com/p/snappy-go/snappy > $@
+
+$(WORK)/snappy-$(NEW).txt: $(GO_NEW_BIN)
+	$(GO_OLD_BIN) get -u -v -d code.google.com/p/snappy-go/snappy
+	$(GO_NEW_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. code.google.com/p/snappy-go/snappy > $@
 
 clean:	
 	rm -f $(WORK)/*.txt
