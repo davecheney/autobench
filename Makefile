@@ -46,7 +46,7 @@ megajson: $(WORK)/megajson-$(OLD).txt $(WORK)/megajson-$(NEW).txt
 	@$(BENCHCMP) $^
 
 snappy: $(WORK)/snappy-$(OLD).txt $(WORK)/snappy-$(NEW).txt
-	@echo "#megajson"
+	@echo "#snappy"
 	@$(BENCHCMP) $^
 
 update-$(GO_CHECKOUT): $(GO_CHECKOUT)
@@ -109,11 +109,11 @@ $(WORK)/megajson-$(NEW).txt: $(GO_NEW_BIN)
 
 $(WORK)/snappy-$(OLD).txt: $(GO_OLD_BIN)
 	$(GO_OLD_BIN) get -u -v -d code.google.com/p/snappy-go/snappy
-	$(GO_OLD_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. code.google.com/p/snappy-go/snappy > $@
+	$(GO_OLD_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench='.*'. code.google.com/p/snappy-go/snappy > $@
 
 $(WORK)/snappy-$(NEW).txt: $(GO_NEW_BIN)
 	$(GO_OLD_BIN) get -u -v -d code.google.com/p/snappy-go/snappy
-	$(GO_NEW_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. code.google.com/p/snappy-go/snappy > $@
+	$(GO_NEW_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench='.*' code.google.com/p/snappy-go/snappy > $@
 
 clean:	
 	rm -f $(WORK)/*.txt
