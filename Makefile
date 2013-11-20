@@ -2,7 +2,7 @@ TOP  := $(shell pwd)
 WORK := $(TOP)/work
 
 # set these two values to the tags (or revisions) you wish to compare
-OLD  := go1.1.2
+OLD  := go1.0.3
 NEW  := go1.2rc5
 
 GO_CHECKOUT=$(WORK)/go
@@ -23,7 +23,7 @@ GOPATH=$(TOP)
 export GOPATH
 unexport GOROOT GOBIN
 
-bench: go1 runtime http floats megajson
+bench: go1 http floats megajson
 
 go1: $(WORK)/go1-$(OLD).txt $(WORK)/go1-$(NEW).txt
 	@echo "# go1"
