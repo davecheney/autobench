@@ -1,0 +1,122 @@
+# go1.0.3 vs go1.2rc5 
+# thinkpad x220 Intel(R) Core(TM) i5-2520M CPU @ 2.50GHz
+#
+# go1
+benchmark                         old ns/op    new ns/op    delta
+BenchmarkBinaryTree17            2147483647   2147483647  -14.86%
+BenchmarkFannkuch11              2147483647   2147483647  -26.44%
+BenchmarkFmtFprintfEmpty                142           99  -29.72%
+BenchmarkFmtFprintfString               457          244  -46.61%
+BenchmarkFmtFprintfInt                  338          208  -38.46%
+BenchmarkFmtFprintfIntInt               555          324  -41.62%
+BenchmarkFmtFprintfPrefixedInt          494          290  -41.30%
+BenchmarkFmtFprintfFloat                704          439  -37.64%
+BenchmarkFmtManyArgs                   2183         1212  -44.48%
+BenchmarkGobDecode                 20821930      8829579  -57.59%
+BenchmarkGobEncode                 10996820      5271990  -52.06%
+BenchmarkGzip                     474696000    468135312   -1.38%
+BenchmarkGunzip                   216456200    114798350  -46.96%
+BenchmarkHTTPClientServer            364730        44575  -87.78%
+BenchmarkJSONEncode                74743700     24496297  -67.23%
+BenchmarkJSONDecode               285353800     93339583  -67.29%
+BenchmarkMandelbrot200              7483925      4803736  -35.81%
+BenchmarkGoParse                    7529760      5020652  -33.32%
+BenchmarkRegexpMatchEasy0_32            162          137  -15.43%
+BenchmarkRegexpMatchEasy0_1K            442          362  -18.10%
+BenchmarkRegexpMatchEasy1_32            142          117  -17.61%
+BenchmarkRegexpMatchEasy1_1K            999          964   -3.50%
+BenchmarkRegexpMatchMedium_32           231          204  -11.69%
+BenchmarkRegexpMatchMedium_1K         76477        73856   -3.43%
+BenchmarkRegexpMatchHard_32            3760         3433   -8.70%
+BenchmarkRegexpMatchHard_1K          119508       110469   -7.56%
+BenchmarkRevcomp                 1020850000    740468907  -27.47%
+BenchmarkTemplate                 413258400    106330463  -74.27%
+BenchmarkTimeParse                     1136          447  -60.65%
+BenchmarkTimeFormat                    2380          458  -80.76%
+
+benchmark                          old MB/s     new MB/s  speedup
+BenchmarkGobDecode                    36.86        86.93    2.36x
+BenchmarkGobEncode                    69.80       145.59    2.09x
+BenchmarkGzip                         40.88        41.45    1.01x
+BenchmarkGunzip                       89.65       169.03    1.89x
+BenchmarkJSONEncode                   25.96        79.21    3.05x
+BenchmarkJSONDecode                    6.80        20.79    3.06x
+BenchmarkGoParse                       7.69        11.54    1.50x
+BenchmarkRegexpMatchEasy0_32         196.73       232.47    1.18x
+BenchmarkRegexpMatchEasy0_1K        2316.54      2828.42    1.22x
+BenchmarkRegexpMatchEasy1_32         224.93       273.21    1.21x
+BenchmarkRegexpMatchEasy1_1K        1024.51      1061.56    1.04x
+BenchmarkRegexpMatchMedium_32          4.31         4.89    1.13x
+BenchmarkRegexpMatchMedium_1K         13.39        13.86    1.04x
+BenchmarkRegexpMatchHard_32            8.51         9.32    1.10x
+BenchmarkRegexpMatchHard_1K            8.57         9.27    1.08x
+BenchmarkRevcomp                     248.98       343.25    1.38x
+BenchmarkTemplate                      4.70        18.25    3.88x
+# http
+benchmark                                   old ns/op    new ns/op    delta
+BenchmarkHeaderWriteSubset                       4823         1037  -78.50%
+BenchmarkReadRequestChrome                      11650         6300  -45.92%
+BenchmarkReadRequestCurl                         5369         3390  -36.86%
+BenchmarkReadRequestApachebench                  5500         3414  -37.93%
+BenchmarkReadRequestSiege                        7631         4501  -41.02%
+BenchmarkReadRequestWrk                          3711         2454  -33.87%
+BenchmarkClientServer                          414213        49810  -87.97%
+BenchmarkClientServerParallel4                 429704        46026  -89.29%
+BenchmarkClientServerParallel64                382284        44720  -88.30%
+BenchmarkServer                                365179       251738  -31.06%
+BenchmarkServerFakeConnNoKeepAlive              32027        12679  -60.41%
+BenchmarkServerFakeConnWithKeepAlive            23212        10084  -56.56%
+BenchmarkServerFakeConnWithKeepAliveLite        17821         6298  -64.66%
+BenchmarkServerHandlerTypeLen                   17518         8444  -51.80%
+BenchmarkServerHandlerNoLen                     18121         7617  -57.97%
+BenchmarkServerHandlerNoType                    16867         7961  -52.80%
+BenchmarkServerHandlerNoHeader                  17630         5584  -68.33%
+
+benchmark                                    old MB/s     new MB/s  speedup
+BenchmarkReadRequestChrome                      52.45        96.97    1.85x
+BenchmarkReadRequestCurl                        14.53        23.01    1.58x
+BenchmarkReadRequestApachebench                 14.91        24.02    1.61x
+BenchmarkReadRequestSiege                       19.79        33.54    1.69x
+BenchmarkReadRequestWrk                         10.78        16.30    1.51x
+# floats
+benchmark                  old ns/op    new ns/op    delta
+BenchmarkMinSmall                 13           13   -0.72%
+BenchmarkMinMed                  690          684   -0.87%
+BenchmarkMinLarge              65401        66424   +1.56%
+BenchmarkMinHuge             8799795      8837360   +0.43%
+BenchmarkAddTwoSmall              29           23  -20.00%
+BenchmarkAddFourSmall             67           49  -26.48%
+BenchmarkAddTwoMed              1356          979  -27.80%
+BenchmarkAddFourMed             4084         2920  -28.50%
+BenchmarkAddTwoLarge          136985       101243  -26.09%
+BenchmarkAddFourLarge         448853       333836  -25.62%
+BenchmarkAddTwoHuge         17773360     15988844  -10.04%
+BenchmarkAddFourHuge        53035920     47794626   -9.88%
+BenchmarkLogSumExpSmall          268          262   -2.24%
+BenchmarkLogSumExpMed          19851        20063   +1.07%
+BenchmarkLogSumExpLarge      1985650      1993600   +0.40%
+BenchmarkLogSumExpHuge     204937000    205112732   +0.09%
+BenchmarkDotSmall                 23           19  -17.39%
+BenchmarkDotMed                 1594         1028  -35.51%
+BenchmarkDotLarge             159105       103447  -34.98%
+BenchmarkDotHuge            18272600     13304909  -27.19%
+#snappy
+benchmark                  old ns/op    new ns/op    delta
+BenchmarkWordsDecode1e3         5831         2594  -55.51%
+BenchmarkWordsDecode1e4        66019        37838  -42.69%
+BenchmarkWordsDecode1e5       706996       481874  -31.84%
+BenchmarkWordsDecode1e6      6383602      4562776  -28.52%
+BenchmarkWordsEncode1e3        17380        13493  -22.36%
+BenchmarkWordsEncode1e4       122496        82738  -32.46%
+BenchmarkWordsEncode1e5      1310952      1031066  -21.35%
+BenchmarkWordsEncode1e6     10593010      8707375  -17.80%
+
+benchmark                   old MB/s     new MB/s  speedup
+BenchmarkWordsDecode1e3       171.47       385.44    2.25x
+BenchmarkWordsDecode1e4       151.47       264.28    1.74x
+BenchmarkWordsDecode1e5       141.44       207.52    1.47x
+BenchmarkWordsDecode1e6       156.65       219.16    1.40x
+BenchmarkWordsEncode1e3        57.53        74.11    1.29x
+BenchmarkWordsEncode1e4        81.63       120.86    1.48x
+BenchmarkWordsEncode1e5        76.28        96.99    1.27x
+BenchmarkWordsEncode1e6        94.40       114.85    1.22x
