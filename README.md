@@ -33,7 +33,7 @@ contributing
 
 Contributions and pull requests are always welcome. If you are submitting a pull request with benchmark data, please include the value of OLD and NEW at the top of the Makefile in the suffix of your file (follow the examples) so we can trace which revision this benchmark was taken from. If you want to include commentry in your benchmark, comments should start with a #.
 
-     make > linux-386-go1.1.2-vs-go.1.2rc3.txt
+     make > linux-386-go1.1.2-vs-go.1.2rc5.txt
 
 licence
 -------
