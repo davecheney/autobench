@@ -23,7 +23,7 @@ GOPATH=$(TOP)
 export GOPATH
 unexport GOROOT GOBIN
 
-bench: go1 http floats megajson
+bench: go1 http floats megajson snappy
 
 go1: $(WORK)/go1-$(OLD).txt $(WORK)/go1-$(NEW).txt
 	@echo "# go1"
