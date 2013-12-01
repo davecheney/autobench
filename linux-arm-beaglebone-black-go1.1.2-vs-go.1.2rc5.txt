@@ -1,0 +1,244 @@
+cd /home/ubuntu/autobench/work/go1.2rc5/test/bench/go1 && /home/ubuntu/autobench/work/go1.1.2/bin/go test  -bench=. > /home/ubuntu/autobench/work/go1-go1.1.2.txt
+cd /home/ubuntu/autobench/work/go1.2rc5/test/bench/go1 && /home/ubuntu/autobench/work/go1.2rc5/bin/go test  -bench=. > /home/ubuntu/autobench/work/go1-go1.2rc5.txt
+# go1
+benchmark                         old ns/op    new ns/op    delta
+BenchmarkBinaryTree17            2147483647   2147483647  -10.18%
+BenchmarkFannkuch11              2147483647   2147483647   +4.24%
+BenchmarkFmtFprintfEmpty                830          878   +5.78%
+BenchmarkFmtFprintfString              3917         3587   -8.42%
+BenchmarkFmtFprintfInt                 1985         2052   +3.38%
+BenchmarkFmtFprintfIntInt              3160         3088   -2.28%
+BenchmarkFmtFprintfPrefixedInt         3551         3230   -9.04%
+BenchmarkFmtFprintfFloat              10149         8977  -11.55%
+BenchmarkFmtManyArgs                  14559        15168   +4.18%
+BenchmarkGobDecode                187385600    141360095  -24.56%
+BenchmarkGobEncode                 68925931     67236489   -2.45%
+BenchmarkGzip                    2147483647   2147483647  -14.01%
+BenchmarkGunzip                   991178566    603119958  -39.15%
+BenchmarkHTTPClientServer            916596       837445   -8.64%
+BenchmarkJSONEncode               809293333    356967983  -55.89%
+BenchmarkJSONDecode              1932279041   1631930166  -15.54%
+BenchmarkMandelbrot200            137827437    153710287  +11.52%
+BenchmarkGoParse                   73351362     68473039   -6.65%
+BenchmarkRegexpMatchEasy0_32           1223         1166   -4.66%
+BenchmarkRegexpMatchEasy0_1K           5793         5661   -2.28%
+BenchmarkRegexpMatchEasy1_32           1283         1202   -6.31%
+BenchmarkRegexpMatchEasy1_1K          13029        11807   -9.38%
+BenchmarkRegexpMatchMedium_32          2067         1879   -9.10%
+BenchmarkRegexpMatchMedium_1K        735587       629721  -14.39%
+BenchmarkRegexpMatchHard_32           37966        33890  -10.74%
+BenchmarkRegexpMatchHard_1K         1179754      1034027  -12.35%
+BenchmarkRevcomp                  124724689    106668143  -14.48%
+BenchmarkTemplate                1863269958   1773811500   -4.80%
+BenchmarkTimeParse                    13158         6938  -47.27%
+BenchmarkTimeFormat                   13255        13126   -0.97%
+
+benchmark                          old MB/s     new MB/s  speedup
+BenchmarkGobDecode                     4.10         5.43    1.32x
+BenchmarkGobEncode                    11.14        11.42    1.03x
+BenchmarkGzip                          3.09         3.59    1.16x
+BenchmarkGunzip                       19.58        32.17    1.64x
+BenchmarkJSONEncode                    2.40         5.44    2.27x
+BenchmarkJSONDecode                    1.00         1.19    1.19x
+BenchmarkGoParse                       0.79         0.85    1.08x
+BenchmarkRegexpMatchEasy0_32          26.14        27.44    1.05x
+BenchmarkRegexpMatchEasy0_1K         176.74       180.86    1.02x
+BenchmarkRegexpMatchEasy1_32          24.93        26.62    1.07x
+BenchmarkRegexpMatchEasy1_1K          78.59        86.73    1.10x
+BenchmarkRegexpMatchMedium_32          0.48         0.53    1.10x
+BenchmarkRegexpMatchMedium_1K          1.39         1.63    1.17x
+BenchmarkRegexpMatchHard_32            0.84         0.94    1.12x
+BenchmarkRegexpMatchHard_1K            0.87         0.99    1.14x
+BenchmarkRevcomp                      20.38        23.83    1.17x
+BenchmarkTemplate                      1.04         1.09    1.05x
+/home/ubuntu/autobench/work/go1.1.2/bin/go test  -test.run=XXX -test.bench=. bench/runtime > /home/ubuntu/autobench/work/runtime-go1.1.2.txt
+/home/ubuntu/autobench/work/go1.2rc5/bin/go test  -test.run=XXX -test.bench=. bench/runtime > /home/ubuntu/autobench/work/runtime-go1.2rc5.txt
+# runtime
+benchmark                                old ns/op    new ns/op    delta
+BenchmarkAppend                                716          635  -11.31%
+BenchmarkAppend1Byte                          1748         1201  -31.29%
+BenchmarkAppend4Bytes                         2078         1405  -32.39%
+BenchmarkAppend8Bytes                         2825         1485  -47.43%
+BenchmarkAppend16Bytes                        2354         1851  -21.37%
+BenchmarkAppend32Bytes                        2289         1525  -33.38%
+BenchmarkAppendSpecialCase                     615          597   -2.93%
+BenchmarkSelectUncontended                    2405         2486   +3.37%
+BenchmarkSelectContended                      2326         2466   +6.02%
+BenchmarkSelectNonblock                       1146         1122   -2.09%
+BenchmarkChanUncontended                       854          803   -5.97%
+BenchmarkChanContended                         856          808   -5.61%
+BenchmarkChanSync                             1330         1655  +24.44%
+BenchmarkChanProdCons0                        1336         1705  +27.62%
+BenchmarkChanProdCons10                       1031         1044   +1.26%
+BenchmarkChanProdCons100                       884          848   -4.07%
+BenchmarkChanProdConsWork0                    4711         5068   +7.58%
+BenchmarkChanProdConsWork10                   4406         4429   +0.52%
+BenchmarkChanProdConsWork100                  4250         4183   -1.58%
+BenchmarkChanCreation                         2842         3296  +15.97%
+BenchmarkChanSem                               839          787   -6.20%
+BenchmarkCallClosure                            44           44   +0.00%
+BenchmarkCallClosure1                           66           52  -21.14%
+BenchmarkCallClosure2                          648          590   -8.95%
+BenchmarkCallClosure3                          672          615   -8.48%
+BenchmarkCallClosure4                          673          612   -9.06%
+BenchmarkComplex128DivNormal                  1145         1095   -4.37%
+BenchmarkComplex128DivNisNaN                   593          578   -2.53%
+BenchmarkComplex128DivDisNaN                   606          586   -3.30%
+BenchmarkComplex128DivNisInf                   464          450   -3.02%
+BenchmarkComplex128DivDisInf                   503          500   -0.60%
+BenchmarkConvT2ESmall                          105          117  +11.43%
+BenchmarkConvT2EUintptr                         12           12   +0.00%
+BenchmarkConvT2ELarge                          695          675   -2.88%
+BenchmarkConvT2ISmall                          156          168   +7.69%
+BenchmarkConvT2IUintptr                         24           24   +0.00%
+BenchmarkConvT2ILarge                          762          696   -8.66%
+BenchmarkConvI2E                                50           50   +0.20%
+BenchmarkConvI2I                               231          287  +24.24%
+BenchmarkAssertE2T                             120          153  +27.50%
+BenchmarkAssertE2TLarge                        124          148  +19.35%
+BenchmarkAssertE2I                             249          313  +25.70%
+BenchmarkAssertI2T                             115          147  +27.83%
+BenchmarkAssertI2I                             249          321  +28.92%
+BenchmarkAssertI2E                              50           50   +0.00%
+BenchmarkAssertE2E                              11           11   +0.00%
+BenchmarkMalloc8                               581          515  -11.36%
+BenchmarkMalloc16                              678          728   +7.37%
+BenchmarkMallocTypeInfo8                       755          701   -7.15%
+BenchmarkMallocTypeInfo16                      907          904   -0.33%
+BenchmarkHashStringSpeed                      1086         1067   -1.75%
+BenchmarkHashInt32Speed                        716          642  -10.34%
+BenchmarkHashInt64Speed                       1069         1072   +0.28%
+BenchmarkHashStringArraySpeed                 2820         2768   -1.84%
+BenchmarkMegMap                                199          155  -22.11%
+BenchmarkMegOneMap                             218          149  -31.65%
+BenchmarkMegEqMap                         12740305     12738526   -0.01%
+BenchmarkMegEmptyMap                            35           34   -2.82%
+BenchmarkSmallStrMap                           227          168  -25.99%
+BenchmarkMapStringKeysEight_16                 239          169  -29.29%
+BenchmarkMapStringKeysEight_32                 207          157  -24.15%
+BenchmarkMapStringKeysEight_64                 207          157  -24.15%
+BenchmarkMapStringKeysEight_1M                 207          157  -24.15%
+BenchmarkIntMap                                160          141  -11.88%
+BenchmarkRepeatedLookupStrMapKey32            3379         3335   -1.30%
+BenchmarkRepeatedLookupStrMapKey1M       103228000    102995969   -0.22%
+BenchmarkNewEmptyMap                          1593         1811  +13.68%
+BenchmarkMemmove32                              99           63  -35.79%
+BenchmarkMemmove4K                            2666         2680   +0.53%
+BenchmarkMemmove64K                          43955        43819   -0.31%
+BenchmarkMemmove4M                        21013683     21241828   +1.09%
+BenchmarkMemmove64M                      330459916    326361841   -1.24%
+BenchmarkFinalizer                            1481         1773  +19.72%
+BenchmarkFinalizerRun                        10185        11515  +13.06%
+BenchmarkStackGrowth                         10057         9810   -2.46%
+BenchmarkStackGrowthDeep                   1578635      1468053   -7.00%
+BenchmarkCreateGoroutines                     1089         1544  +41.78%
+BenchmarkCreateGoroutinesParallel             1088         1543  +41.82%
+BenchmarkMatmult                               205          207   +0.98%
+BenchmarkIfaceCmp100                          2252         2251   -0.04%
+BenchmarkIfaceCmpNil100                       2047         2047   +0.00%
+BenchmarkDefer                                 414          457  +10.39%
+BenchmarkDefer10                               385          403   +4.68%
+BenchmarkDeferMany                             978          973   -0.51%
+BenchmarkCompareStringEqual                    159          160   +0.63%
+BenchmarkCompareStringIdentical                 49           49   +0.00%
+BenchmarkCompareStringSameLength               120          120   +0.00%
+BenchmarkCompareStringDifferentLength           12           12   +0.83%
+BenchmarkCompareStringBigUnaligned        12483491     12513098   +0.24%
+BenchmarkCompareStringBig                 12676473     12689581   +0.10%
+
+benchmark                                 old MB/s     new MB/s  speedup
+BenchmarkMemmove32                          322.73       502.01    1.56x
+BenchmarkMemmove4K                         1536.04      1528.18    0.99x
+BenchmarkMemmove64K                        1490.96      1495.58    1.00x
+BenchmarkMemmove4M                          199.60       197.45    0.99x
+BenchmarkMemmove64M                         203.08       205.63    1.01x
+BenchmarkCompareStringBigUnaligned           84.00        83.80    1.00x
+BenchmarkCompareStringBig                    82.72        82.63    1.00x
+/home/ubuntu/autobench/work/go1.1.2/bin/go test  -test.run=XXX -test.bench=. bench/http > /home/ubuntu/autobench/work/http-go1.1.2.txt
+/home/ubuntu/autobench/work/go1.2rc5/bin/go test  -test.run=XXX -test.bench=. bench/http > /home/ubuntu/autobench/work/http-go1.2rc5.txt
+# http
+benchmark                                   old ns/op    new ns/op    delta
+BenchmarkHeaderWriteSubset                      13038        11585  -11.14%
+BenchmarkReadRequestChrome                     128252       107705  -16.02%
+BenchmarkReadRequestCurl                        64901        55991  -13.73%
+BenchmarkReadRequestApachebench                 64613        55166  -14.62%
+BenchmarkReadRequestSiege                       85845        75149  -12.46%
+BenchmarkReadRequestWrk                         41846        36905  -11.81%
+BenchmarkClientServer                         1063185      1006851   -5.30%
+BenchmarkClientServerParallel4                1014308       941446   -7.18%
+BenchmarkClientServerParallel64               1023700       879922  -14.04%
+BenchmarkServer                               2293679      2016817  -12.07%
+BenchmarkServerFakeConnNoKeepAlive             261795       211809  -19.09%
+BenchmarkServerFakeConnWithKeepAlive           219306       172921  -21.15%
+BenchmarkServerFakeConnWithKeepAliveLite       125485        92934  -25.94%
+BenchmarkServerHandlerTypeLen                  178671       138294  -22.60%
+BenchmarkServerHandlerNoLen                    157980       123856  -21.60%
+BenchmarkServerHandlerNoType                   165602       130143  -21.41%
+BenchmarkServerHandlerNoHeader                 124740        90623  -27.35%
+
+benchmark                                    old MB/s     new MB/s  speedup
+BenchmarkReadRequestChrome                       4.76         5.67    1.19x
+BenchmarkReadRequestCurl                         1.20         1.39    1.16x
+BenchmarkReadRequestApachebench                  1.27         1.49    1.17x
+BenchmarkReadRequestSiege                        1.76         2.01    1.14x
+BenchmarkReadRequestWrk                          0.96         1.08    1.13x
+/home/ubuntu/autobench/work/go1.1.2/bin/go test  -test.run=XXX -test.bench=. bench/floats > /home/ubuntu/autobench/work/floats-go1.1.2.txt
+/home/ubuntu/autobench/work/go1.2rc5/bin/go test  -test.run=XXX -test.bench=. bench/floats > /home/ubuntu/autobench/work/floats-go1.2rc5.txt
+# floats
+benchmark                  old ns/op    new ns/op    delta
+BenchmarkMinSmall                470          470   +0.00%
+BenchmarkMinMed                38051        37975   -0.20%
+BenchmarkMinLarge            6423988      6188861   -3.66%
+BenchmarkMinHuge           633460291    634306521   +0.13%
+BenchmarkAddTwoSmall             479          472   -1.46%
+BenchmarkAddFourSmall           1268         1262   -0.47%
+BenchmarkAddTwoMed             37941        37969   +0.07%
+BenchmarkAddFourMed           113565       115982   +2.13%
+BenchmarkAddTwoLarge         7603765      7531763   -0.95%
+BenchmarkAddFourLarge       22525186     22842429   +1.41%
+BenchmarkAddTwoHuge        749792858    682965958   -8.91%
+BenchmarkAddFourHuge      2076474001   2117539167   +1.98%
+BenchmarkLogSumExpSmall        14796        14803   +0.05%
+BenchmarkLogSumExpMed        1429946      1432963   +0.21%
+BenchmarkLogSumExpLarge    150115233    147974179   -1.43%
+BenchmarkLogSumExpHuge    2147483647   2147483647   -1.39%
+BenchmarkDotSmall                486          486   +0.00%
+BenchmarkDotMed                40516        40518   +0.00%
+BenchmarkDotLarge            6067442      6089548   +0.36%
+BenchmarkDotHuge           605385808    529819333  -12.48%
+/home/ubuntu/autobench/work/go1.1.2/bin/go get -u -v -d github.com/benbjohnson/megajson
+/home/ubuntu/autobench/work/go1.1.2/bin/go test  -test.run=XXX -test.bench=. github.com/benbjohnson/megajson/bench > /home/ubuntu/autobench/work/megajson-go1.1.2.txt
+/home/ubuntu/autobench/work/go1.2rc5/bin/go get -u -v -d github.com/benbjohnson/megajson
+/home/ubuntu/autobench/work/go1.2rc5/bin/go test  -test.run=XXX -test.bench=. github.com/benbjohnson/megajson/bench > /home/ubuntu/autobench/work/megajson-go1.2rc5.txt
+#megajson
+benchmark               old ns/op    new ns/op    delta
+BenchmarkCodeEncoder    301043525    259263566  -13.88%
+BenchmarkCodeDecoder    989344841    788959416  -20.25%
+
+benchmark                old MB/s     new MB/s  speedup
+BenchmarkCodeEncoder         6.45         7.48    1.16x
+BenchmarkCodeDecoder         1.96         2.46    1.26x
+/home/ubuntu/autobench/work/go1.1.2/bin/go get -u -v -d code.google.com/p/snappy-go/snappy
+/home/ubuntu/autobench/work/go1.1.2/bin/go test  -test.run=XXX -test.bench='.*'. code.google.com/p/snappy-go/snappy > /home/ubuntu/autobench/work/snappy-go1.1.2.txt
+/home/ubuntu/autobench/work/go1.2rc5/bin/go get -u -v -d code.google.com/p/snappy-go/snappy
+/home/ubuntu/autobench/work/go1.2rc5/bin/go test  -test.run=XXX -test.bench='.*' code.google.com/p/snappy-go/snappy > /home/ubuntu/autobench/work/snappy-go1.2rc5.txt
+#snappy
+benchmark                  old ns/op    new ns/op    delta
+BenchmarkWordsDecode1e3        57021        39311  -31.06%
+BenchmarkWordsDecode1e4       579238       411121  -29.02%
+BenchmarkWordsDecode1e5      6061517      4336039  -28.47%
+BenchmarkWordsDecode1e6     63654552     47915405  -24.73%
+BenchmarkWordsEncode1e3       188412       157693  -16.30%
+BenchmarkWordsEncode1e4      1198571       911877  -23.92%
+BenchmarkWordsEncode1e5     11808740      8917168  -24.49%
+BenchmarkWordsEncode1e6    109462816     82492452  -24.64%
+
+benchmark                   old MB/s     new MB/s  speedup
+BenchmarkWordsDecode1e3        17.54        25.44    1.45x
+BenchmarkWordsDecode1e4        17.26        24.32    1.41x
+BenchmarkWordsDecode1e5        16.50        23.06    1.40x
+BenchmarkWordsDecode1e6        15.71        20.87    1.33x
+BenchmarkWordsEncode1e3         5.31         6.34    1.19x
+BenchmarkWordsEncode1e4         8.34        10.97    1.32x
+BenchmarkWordsEncode1e5         8.47        11.21    1.32x
+BenchmarkWordsEncode1e6         9.14        12.12    1.33x
