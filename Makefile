@@ -23,7 +23,7 @@ GOPATH=$(TOP)
 export GOPATH
 unexport GOROOT GOBIN
 
-bench: go1 runtime http floats megajson snappy
+bench: go1 runtime bytes strings http floats megajson snappy
 
 go1: $(WORK)/go1-$(OLD).txt $(WORK)/go1-$(NEW).txt
 	@echo "# go1"
@@ -31,6 +31,14 @@ go1: $(WORK)/go1-$(OLD).txt $(WORK)/go1-$(NEW).txt
 
 runtime: $(WORK)/runtime-$(OLD).txt $(WORK)/runtime-$(NEW).txt
 	@echo "# runtime"
+	@$(BENCHCMP) $^
+
+bytes: $(WORK)/bytes-$(OLD).txt $(WORK)/bytes-$(NEW).txt
+	@echo "# bytes"
+	@$(BENCHCMP) $^
+
+strings: $(WORK)/strings-$(OLD).txt $(WORK)/strings-$(NEW).txt
+	@echo "# strings"
 	@$(BENCHCMP) $^
 
 http: $(WORK)/http-$(OLD).txt $(WORK)/http-$(NEW).txt
@@ -92,6 +100,18 @@ $(WORK)/http-$(OLD).txt: $(GO_OLD_BIN)
 
 $(WORK)/http-$(NEW).txt: $(GO_NEW_BIN)
 	$(GO_NEW_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. bench/http > $@
+
+$(WORK)/bytes-$(OLD).txt: $(GO_OLD_BIN)
+	$(GO_OLD_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. bytes > $@
+
+$(WORK)/bytes-$(NEW).txt: $(GO_NEW_BIN)
+	$(GO_NEW_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. bytes > $@
+
+$(WORK)/strings-$(OLD).txt: $(GO_OLD_BIN)
+	$(GO_OLD_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. strings > $@
+
+$(WORK)/strings-$(NEW).txt: $(GO_NEW_BIN)
+	$(GO_NEW_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. strings > $@
 
 $(WORK)/floats-$(OLD).txt: $(GO_OLD_BIN)
 	$(GO_OLD_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. bench/floats > $@
