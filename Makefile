@@ -23,7 +23,8 @@ GOPATH=$(TOP)
 export GOPATH
 unexport GOROOT GOBIN
 
-bench: go1 runtime bytes strings http floats megajson snappy
+bench: go1 runtime http floats cipher megajson snappy
+extra: bench bytes strings goquery
 
 go1: $(WORK)/go1-$(OLD).txt $(WORK)/go1-$(NEW).txt
 	@echo "# go1"
@@ -35,6 +36,10 @@ runtime: $(WORK)/runtime-$(OLD).txt $(WORK)/runtime-$(NEW).txt
 
 bytes: $(WORK)/bytes-$(OLD).txt $(WORK)/bytes-$(NEW).txt
 	@echo "# bytes"
+	@$(BENCHCMP) $^
+
+cipher: $(WORK)/cipher-$(OLD).txt $(WORK)/cipher-$(NEW).txt
+	@echo "# cipher"
 	@$(BENCHCMP) $^
 
 strings: $(WORK)/strings-$(OLD).txt $(WORK)/strings-$(NEW).txt
@@ -55,6 +60,10 @@ megajson: $(WORK)/megajson-$(OLD).txt $(WORK)/megajson-$(NEW).txt
 
 snappy: $(WORK)/snappy-$(OLD).txt $(WORK)/snappy-$(NEW).txt
 	@echo "#snappy"
+	@$(BENCHCMP) $^
+
+goquery: $(WORK)/goquery-$(OLD).txt $(WORK)/goquery-$(NEW).txt
+	@echo "#goquery"
 	@$(BENCHCMP) $^
 
 update-$(GO_CHECKOUT): $(GO_CHECKOUT)
@@ -101,6 +110,12 @@ $(WORK)/http-$(OLD).txt: $(GO_OLD_BIN)
 $(WORK)/http-$(NEW).txt: $(GO_NEW_BIN)
 	$(GO_NEW_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. bench/http > $@
 
+$(WORK)/cipher-$(OLD).txt: $(GO_OLD_BIN)
+	$(GO_OLD_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. bench/cipher > $@
+
+$(WORK)/cipher-$(NEW).txt: $(GO_NEW_BIN)
+	$(GO_NEW_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. bench/cipher > $@
+
 $(WORK)/bytes-$(OLD).txt: $(GO_OLD_BIN)
 	$(GO_OLD_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. bytes > $@
 
@@ -134,6 +149,14 @@ $(WORK)/snappy-$(OLD).txt: $(GO_OLD_BIN)
 $(WORK)/snappy-$(NEW).txt: $(GO_NEW_BIN)
 	$(GO_NEW_BIN) get -u -v -d code.google.com/p/snappy-go/snappy
 	$(GO_NEW_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench='.*' code.google.com/p/snappy-go/snappy > $@
+
+$(WORK)/goquery-$(OLD).txt: $(GO_OLD_BIN)
+	$(GO_OLD_BIN) get -u -v -d github.com/PuerkitoBio/goquery
+	$(GO_OLD_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench='.*'. github.com/PuerkitoBio/goquery > $@
+
+$(WORK)/goquery-$(NEW).txt: $(GO_NEW_BIN)
+	$(GO_NEW_BIN) get -u -v -d github.com/PuerkitoBio/goquery
+	$(GO_NEW_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench='.*' github.com/PuerkitoBio/goquery > $@
 
 clean:	
 	rm -f $(WORK)/*.txt
