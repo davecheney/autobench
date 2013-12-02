@@ -1,5 +1,3 @@
-cd /home/ubuntu/autobench/work/go1.2rc5/test/bench/go1 && /home/ubuntu/autobench/work/go1.1.2/bin/go test  -bench=. > /home/ubuntu/autobench/work/go1-go1.1.2.txt
-cd /home/ubuntu/autobench/work/go1.2rc5/test/bench/go1 && /home/ubuntu/autobench/work/go1.2rc5/bin/go test  -bench=. > /home/ubuntu/autobench/work/go1-go1.2rc5.txt
 # go1
 benchmark                         old ns/op    new ns/op    delta
 BenchmarkBinaryTree17            2147483647   2147483647  -10.18%
@@ -51,8 +49,6 @@ BenchmarkRegexpMatchHard_32            0.84         0.94    1.12x
 BenchmarkRegexpMatchHard_1K            0.87         0.99    1.14x
 BenchmarkRevcomp                      20.38        23.83    1.17x
 BenchmarkTemplate                      1.04         1.09    1.05x
-/home/ubuntu/autobench/work/go1.1.2/bin/go test  -test.run=XXX -test.bench=. bench/runtime > /home/ubuntu/autobench/work/runtime-go1.1.2.txt
-/home/ubuntu/autobench/work/go1.2rc5/bin/go test  -test.run=XXX -test.bench=. bench/runtime > /home/ubuntu/autobench/work/runtime-go1.2rc5.txt
 # runtime
 benchmark                                old ns/op    new ns/op    delta
 BenchmarkAppend                                716          635  -11.31%
@@ -154,8 +150,6 @@ BenchmarkMemmove4M                          199.60       197.45    0.99x
 BenchmarkMemmove64M                         203.08       205.63    1.01x
 BenchmarkCompareStringBigUnaligned           84.00        83.80    1.00x
 BenchmarkCompareStringBig                    82.72        82.63    1.00x
-/home/ubuntu/autobench/work/go1.1.2/bin/go test  -test.run=XXX -test.bench=. bench/http > /home/ubuntu/autobench/work/http-go1.1.2.txt
-/home/ubuntu/autobench/work/go1.2rc5/bin/go test  -test.run=XXX -test.bench=. bench/http > /home/ubuntu/autobench/work/http-go1.2rc5.txt
 # http
 benchmark                                   old ns/op    new ns/op    delta
 BenchmarkHeaderWriteSubset                      13038        11585  -11.14%
@@ -182,8 +176,6 @@ BenchmarkReadRequestCurl                         1.20         1.39    1.16x
 BenchmarkReadRequestApachebench                  1.27         1.49    1.17x
 BenchmarkReadRequestSiege                        1.76         2.01    1.14x
 BenchmarkReadRequestWrk                          0.96         1.08    1.13x
-/home/ubuntu/autobench/work/go1.1.2/bin/go test  -test.run=XXX -test.bench=. bench/floats > /home/ubuntu/autobench/work/floats-go1.1.2.txt
-/home/ubuntu/autobench/work/go1.2rc5/bin/go test  -test.run=XXX -test.bench=. bench/floats > /home/ubuntu/autobench/work/floats-go1.2rc5.txt
 # floats
 benchmark                  old ns/op    new ns/op    delta
 BenchmarkMinSmall                470          470   +0.00%
@@ -206,10 +198,6 @@ BenchmarkDotSmall                486          486   +0.00%
 BenchmarkDotMed                40516        40518   +0.00%
 BenchmarkDotLarge            6067442      6089548   +0.36%
 BenchmarkDotHuge           605385808    529819333  -12.48%
-/home/ubuntu/autobench/work/go1.1.2/bin/go get -u -v -d github.com/benbjohnson/megajson
-/home/ubuntu/autobench/work/go1.1.2/bin/go test  -test.run=XXX -test.bench=. github.com/benbjohnson/megajson/bench > /home/ubuntu/autobench/work/megajson-go1.1.2.txt
-/home/ubuntu/autobench/work/go1.2rc5/bin/go get -u -v -d github.com/benbjohnson/megajson
-/home/ubuntu/autobench/work/go1.2rc5/bin/go test  -test.run=XXX -test.bench=. github.com/benbjohnson/megajson/bench > /home/ubuntu/autobench/work/megajson-go1.2rc5.txt
 #megajson
 benchmark               old ns/op    new ns/op    delta
 BenchmarkCodeEncoder    301043525    259263566  -13.88%
@@ -218,10 +206,6 @@ BenchmarkCodeDecoder    989344841    788959416  -20.25%
 benchmark                old MB/s     new MB/s  speedup
 BenchmarkCodeEncoder         6.45         7.48    1.16x
 BenchmarkCodeDecoder         1.96         2.46    1.26x
-/home/ubuntu/autobench/work/go1.1.2/bin/go get -u -v -d code.google.com/p/snappy-go/snappy
-/home/ubuntu/autobench/work/go1.1.2/bin/go test  -test.run=XXX -test.bench='.*'. code.google.com/p/snappy-go/snappy > /home/ubuntu/autobench/work/snappy-go1.1.2.txt
-/home/ubuntu/autobench/work/go1.2rc5/bin/go get -u -v -d code.google.com/p/snappy-go/snappy
-/home/ubuntu/autobench/work/go1.2rc5/bin/go test  -test.run=XXX -test.bench='.*' code.google.com/p/snappy-go/snappy > /home/ubuntu/autobench/work/snappy-go1.2rc5.txt
 #snappy
 benchmark                  old ns/op    new ns/op    delta
 BenchmarkWordsDecode1e3        57021        39311  -31.06%
