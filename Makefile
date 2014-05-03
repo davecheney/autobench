@@ -2,8 +2,8 @@ TOP  := $(shell pwd)
 WORK := $(TOP)/work
 
 # set these two values to the tags (or revisions) you wish to compare
-OLD  := go1.1.2
-NEW  := go1.2
+OLD  := go1.2.1
+NEW  := f8b50ad4cac4
 
 GO_CHECKOUT=$(WORK)/go
 GO_OLD_ROOT=$(WORK)/$(OLD)
@@ -16,17 +16,19 @@ GO1_BENCH=$(GO_NEW_ROOT)/test/bench/go1
 # uncomment to benchmark with gccgo
 # TESTFLAGS=-compiler=gccgo
 
-BENCHCMP=$(GO_CHECKOUT)/misc/benchcmp
+all: bench
 
 # setup our benchmarking environment
 GOPATH=$(TOP)
 export GOPATH
 unexport GOROOT GOBIN
 
+BENCHCMP=$(GO_OLD_ROOT)/misc/benchcmp
+
 bench: go1 runtime http floats cipher megajson snappy
 extra: bench bytes strings goquery
 
-go1: $(WORK)/go1-$(OLD).txt $(WORK)/go1-$(NEW).txt
+go1: $(WORK)/go1-$(OLD).txt $(WORK)/go1-$(NEW).txt 
 	@echo "# go1"
 	@$(BENCHCMP) $^
 
@@ -95,7 +97,7 @@ $(GO1_BENCH): $(GO_NEW_ROOT)
 $(WORK)/go1-$(OLD).txt: $(GO_OLD_BIN) $(GO1_BENCH)
 	cd $(GO1_BENCH) && $(GO_OLD_BIN) test $(TESTFLAGS) -bench=. > $@
 
-$(WORK)/go1-$(NEW).txt: $(GO_NEW_BIN) $(GO1_BENCH)
+$(WORK)/go1-$(NEW).txt: $(GO_NEW_BIN) $(GO1_BENCH) 
 	cd $(GO1_BENCH) && $(GO_NEW_BIN) test $(TESTFLAGS) -bench=. > $@
 
 $(WORK)/runtime-$(OLD).txt: $(GO_OLD_BIN)
@@ -136,11 +138,11 @@ $(WORK)/floats-$(NEW).txt: $(GO_NEW_BIN)
 
 $(WORK)/megajson-$(OLD).txt: $(GO_OLD_BIN)
 	$(GO_OLD_BIN) get -u -v -d github.com/benbjohnson/megajson
-	$(GO_OLD_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. github.com/benbjohnson/megajson/bench > $@
+	cd $(GOPATH)/src/github.com/benbjohnson/megajson/.bench && $(GO_OLD_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. . > $@
 
 $(WORK)/megajson-$(NEW).txt: $(GO_NEW_BIN)
 	$(GO_NEW_BIN) get -u -v -d github.com/benbjohnson/megajson
-	$(GO_NEW_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. github.com/benbjohnson/megajson/bench > $@
+	cd $(GOPATH)/src/github.com/benbjohnson/megajson/.bench && $(GO_OLD_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. . > $@
 
 $(WORK)/snappy-$(OLD).txt: $(GO_OLD_BIN)
 	$(GO_OLD_BIN) get -u -v -d code.google.com/p/snappy-go/snappy
@@ -160,3 +162,5 @@ $(WORK)/goquery-$(NEW).txt: $(GO_NEW_BIN)
 
 clean:	
 	rm -f $(WORK)/*.txt
+
+.PHONEY: $(BENCHCMP)
