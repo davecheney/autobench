@@ -1,3 +1,8 @@
+MBP 2.3GHz Intel Core i7
+16MB RAM
+Super Fast Better than SSD Disk Thingy
+OS X 10.9.2
+
 # go1
 benchmark                         old ns/op    new ns/op    delta
 BenchmarkBinaryTree17            3880357123   3261811801  -15.94%
