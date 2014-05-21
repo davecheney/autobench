@@ -3,8 +3,7 @@ WORK := $(TOP)/work
 
 # set these two values to the tags (or revisions) you wish to compare
 OLD  := go1.2.2
-NEW  := f8b50ad4cac4
-# NEW  := tip
+NEW  := 1.3beta2
 
 GO_CHECKOUT=$(WORK)/go
 GO_OLD_ROOT=$(WORK)/$(OLD)
