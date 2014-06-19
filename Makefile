@@ -2,8 +2,8 @@ TOP  := $(shell pwd)
 WORK := $(TOP)/work
 
 # set these two values to the tags (or revisions) you wish to compare
-OLD  := go1.1.2
-NEW  := go1.2
+OLD  := go1.2.2
+NEW  := go1.3
 
 GO_CHECKOUT=$(WORK)/go
 GO_OLD_ROOT=$(WORK)/$(OLD)
@@ -16,55 +16,57 @@ GO1_BENCH=$(GO_NEW_ROOT)/test/bench/go1
 # uncomment to benchmark with gccgo
 # TESTFLAGS=-compiler=gccgo
 
-BENCHCMP=$(GO_CHECKOUT)/misc/benchcmp
+all: bench
 
 # setup our benchmarking environment
 GOPATH=$(TOP)
 export GOPATH
 unexport GOROOT GOBIN
 
+BENCHCMP=$(TOP)/bin/benchcmp
+
 bench: go1 runtime http floats cipher megajson snappy
 extra: bench bytes strings goquery
 
-go1: $(WORK)/go1-$(OLD).txt $(WORK)/go1-$(NEW).txt
+go1: $(WORK)/go1-$(OLD).txt $(WORK)/go1-$(NEW).txt $(BENCHCMP)
 	@echo "# go1"
-	@$(BENCHCMP) $^
+	@$(BENCHCMP) $(WORK)/go1-$(OLD).txt $(WORK)/go1-$(NEW).txt
 
-runtime: $(WORK)/runtime-$(OLD).txt $(WORK)/runtime-$(NEW).txt
+runtime: $(WORK)/runtime-$(OLD).txt $(WORK)/runtime-$(NEW).txt $(BENCHCMP)
 	@echo "# runtime"
-	@$(BENCHCMP) $^
+	@$(BENCHCMP) $(WORK)/runtime-$(OLD).txt $(WORK)/runtime-$(NEW).txt
 
-bytes: $(WORK)/bytes-$(OLD).txt $(WORK)/bytes-$(NEW).txt
+bytes: $(WORK)/bytes-$(OLD).txt $(WORK)/bytes-$(NEW).txt $(BENCHCMP)
 	@echo "# bytes"
-	@$(BENCHCMP) $^
+	@$(BENCHCMP) $(WORK)/bytes-$(OLD).txt $(WORK)/bytes-$(NEW).txt
 
-cipher: $(WORK)/cipher-$(OLD).txt $(WORK)/cipher-$(NEW).txt
+cipher: $(WORK)/cipher-$(OLD).txt $(WORK)/cipher-$(NEW).txt $(BENCHCMP)
 	@echo "# cipher"
-	@$(BENCHCMP) $^
+	@$(BENCHCMP) $(WORK)/cipher-$(OLD).txt $(WORK)/cipher-$(NEW).txt
 
-strings: $(WORK)/strings-$(OLD).txt $(WORK)/strings-$(NEW).txt
+strings: $(WORK)/strings-$(OLD).txt $(WORK)/strings-$(NEW).txt $(BENCHCMP)
 	@echo "# strings"
-	@$(BENCHCMP) $^
+	@$(BENCHCMP) $(WORK)/strings-$(OLD).txt $(WORK)/strings-$(NEW).txt
 
-http: $(WORK)/http-$(OLD).txt $(WORK)/http-$(NEW).txt
+http: $(WORK)/http-$(OLD).txt $(WORK)/http-$(NEW).txt $(BENCHCMP)
 	@echo "# http"
-	@$(BENCHCMP) $^
+	@$(BENCHCMP) $(WORK)/http-$(OLD).txt $(WORK)/http-$(NEW).txt
 
-floats: $(WORK)/floats-$(OLD).txt $(WORK)/floats-$(NEW).txt
+floats: $(WORK)/floats-$(OLD).txt $(WORK)/floats-$(NEW).txt $(BENCHCMP)
 	@echo "# floats"
-	@$(BENCHCMP) $^
+	@$(BENCHCMP) $(WORK)/floats-$(OLD).txt $(WORK)/floats-$(NEW).txt
 
-megajson: $(WORK)/megajson-$(OLD).txt $(WORK)/megajson-$(NEW).txt
+megajson: $(WORK)/megajson-$(OLD).txt $(WORK)/megajson-$(NEW).txt $(BENCHCMP)
 	@echo "#megajson"
-	@$(BENCHCMP) $^
+	@$(BENCHCMP) $(WORK)/megajson-$(OLD).txt $(WORK)/megajson-$(NEW).txt
 
-snappy: $(WORK)/snappy-$(OLD).txt $(WORK)/snappy-$(NEW).txt
+snappy: $(WORK)/snappy-$(OLD).txt $(WORK)/snappy-$(NEW).txt $(BENCHCMP)
 	@echo "#snappy"
-	@$(BENCHCMP) $^
+	@$(BENCHCMP) $(WORK)/snappy-$(OLD).txt $(WORK)/snappy-$(NEW).txt
 
-goquery: $(WORK)/goquery-$(OLD).txt $(WORK)/goquery-$(NEW).txt
+goquery: $(WORK)/goquery-$(OLD).txt $(WORK)/goquery-$(NEW).txt $(BENCHCMP)
 	@echo "#goquery"
-	@$(BENCHCMP) $^
+	@$(BENCHCMP) $(WORK)/goquery-$(OLD).txt $(WORK)/goquery-$(NEW).txt
 
 update-$(GO_CHECKOUT): $(GO_CHECKOUT)
 	hg pull --cwd $(GO_CHECKOUT) -u
@@ -92,10 +94,13 @@ $(GO_NEW_BIN): $(GO_NEW_ROOT)
 
 $(GO1_BENCH): $(GO_NEW_ROOT)
 
+$(BENCHCMP): $(GO_NEW_BIN)
+	cd $(GO_NEW_ROOT); ./bin/go get code.google.com/p/go.tools/cmd/benchcmp
+
 $(WORK)/go1-$(OLD).txt: $(GO_OLD_BIN) $(GO1_BENCH)
 	cd $(GO1_BENCH) && $(GO_OLD_BIN) test $(TESTFLAGS) -bench=. > $@
 
-$(WORK)/go1-$(NEW).txt: $(GO_NEW_BIN) $(GO1_BENCH)
+$(WORK)/go1-$(NEW).txt: $(GO_NEW_BIN) $(GO1_BENCH) 
 	cd $(GO1_BENCH) && $(GO_NEW_BIN) test $(TESTFLAGS) -bench=. > $@
 
 $(WORK)/runtime-$(OLD).txt: $(GO_OLD_BIN)
@@ -136,11 +141,11 @@ $(WORK)/floats-$(NEW).txt: $(GO_NEW_BIN)
 
 $(WORK)/megajson-$(OLD).txt: $(GO_OLD_BIN)
 	$(GO_OLD_BIN) get -u -v -d github.com/benbjohnson/megajson
-	$(GO_OLD_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. github.com/benbjohnson/megajson/bench > $@
+	cd $(GOPATH)/src/github.com/benbjohnson/megajson/.bench && $(GO_OLD_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. . > $@
 
 $(WORK)/megajson-$(NEW).txt: $(GO_NEW_BIN)
 	$(GO_NEW_BIN) get -u -v -d github.com/benbjohnson/megajson
-	$(GO_NEW_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. github.com/benbjohnson/megajson/bench > $@
+	cd $(GOPATH)/src/github.com/benbjohnson/megajson/.bench && $(GO_OLD_BIN) test $(TESTFLAGS) -test.run=XXX -test.bench=. . > $@
 
 $(WORK)/snappy-$(OLD).txt: $(GO_OLD_BIN)
 	$(GO_OLD_BIN) get -u -v -d code.google.com/p/snappy-go/snappy
@@ -160,3 +165,5 @@ $(WORK)/goquery-$(NEW).txt: $(GO_NEW_BIN)
 
 clean:	
 	rm -f $(WORK)/*.txt
+
+.PHONEY: $(BENCHCMP) tip
