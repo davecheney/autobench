@@ -1,6 +1,6 @@
 # Model Name:	OpenStack Nova
-# Processor Name:	Intel Core i7
-# Processor Speed:	2.3 GHz
+# Processor Name:	Intel Xeon E312xx (Sandy Bridge)
+# Processor Speed:	2.4 GHz
 # Number of Processors:	8
 # Memory:	16 GB
 # OS: Ubuntu 14.04
