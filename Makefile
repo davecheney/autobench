@@ -2,8 +2,8 @@ TOP  := $(shell pwd)
 WORK := $(TOP)/work
 
 # set these two values to the tags (or revisions) you wish to compare
-OLD  := go1.2.2
-NEW  := go1.3
+OLD  := go1.3
+NEW  := default
 
 GO_CHECKOUT=$(WORK)/go
 GO_OLD_ROOT=$(WORK)/$(OLD)
